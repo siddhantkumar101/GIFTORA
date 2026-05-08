@@ -104,7 +104,7 @@ const fallbackProducts = [
     category: "Keychains",
     price: 199,
     compareAt: 299,
-    image: "https://images.unsplash.com/photo-1584622781564-1d9876a13d00?q=80&w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?q=80&w=800&auto=format&fit=crop",
     description: "Crystal clear acrylic keychain with double-sided photo printing.",
     leadTime: "2 days",
     rating: 4.5,
@@ -138,7 +138,7 @@ const fallbackProducts = [
     category: "Water Bottles",
     price: 899,
     compareAt: 1299,
-    image: "https://images.unsplash.com/photo-1602143303410-7199d123ad2c?q=80&w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1610832958506-aa56368176cf?q=80&w=800&auto=format&fit=crop",
     description: "Double-walled steel bottle with laser-engraved name or logo.",
     leadTime: "4 days",
     rating: 4.9,
@@ -845,7 +845,7 @@ function LoginPanel({ role, mode, setMode, form, setForm, selectRole, onSubmit, 
             <Icon size={24} aria-hidden="true" />
           </div>
           <p className="mt-5 text-sm font-bold uppercase tracking-[0.18em] text-lemon">
-            Role based access
+            Secure Authentication
           </p>
           <h2 className="mt-2 text-3xl font-black">{roleCopy.title}</h2>
           <p className="mt-3 text-sm leading-6 text-white/75">{roleCopy.subtitle}</p>
