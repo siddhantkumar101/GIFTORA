@@ -196,6 +196,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("studio");
   const [session, setSession] = useState(() => getSaved("giftora-session", null));
   const [loginOpen, setLoginOpen] = useState(false);
+  const [loginMode, setLoginMode] = useState("login"); // "login" or "register"
   const [loginRole, setLoginRole] = useState("consumer");
   const [loginForm, setLoginForm] = useState({
     ...demoAccounts.consumer,
@@ -306,53 +307,51 @@ export default function App() {
 
   async function handleLogin(event) {
     event?.preventDefault();
+    const isRegister = loginMode === "register";
     const base = demoAccounts[loginRole];
-    const loginPayload = {
+    const authPayload = {
       role: loginRole,
       name: loginForm.name || base.name,
       email: loginForm.email || base.email,
+      password: loginForm.password || "demo123",
       phone: loginForm.phone || base.phone
-    };
-    let nextSession = {
-      id: `${loginRole}-${Date.now()}`,
-      ...loginPayload
     };
 
     try {
-      const savedUser = await api("/auth/demo", {
+      const savedUser = await api(isRegister ? "/auth/register" : "/auth/login", {
         method: "POST",
-        body: JSON.stringify(loginPayload)
+        body: JSON.stringify(authPayload)
       });
-      nextSession = {
-        id: savedUser.id || nextSession.id,
+      
+      const nextSession = {
+        id: savedUser.id,
         role: savedUser.role || loginRole,
         name: savedUser.name,
         email: savedUser.email,
         phone: savedUser.phone || ""
       };
-    } catch {
-      setNotice("API login unavailable, using local demo session.");
+
+      setSession(nextSession);
+      setLoginOpen(false);
+      setNotice(
+        isRegister
+          ? `Account created! Logged in as ${nextSession.role}.`
+          : `Logged in as ${nextSession.role}.`
+      );
+
+      if (nextSession.role === "seller") {
+        setActiveTab("seller");
+      } else {
+        setUser({
+          name: nextSession.name,
+          email: nextSession.email,
+          phone: nextSession.phone
+        });
+        setActiveTab("studio");
+      }
+    } catch (error) {
+      setNotice(error.message);
     }
-
-    setSession(nextSession);
-    setLoginOpen(false);
-    setNotice(
-      loginRole === "seller"
-        ? "Seller logged in. Dashboard unlocked."
-        : "Consumer logged in. Cart and order tracking unlocked."
-    );
-
-    if (loginRole === "seller") {
-      setActiveTab("seller");
-      return;
-    }
-
-    setUser({
-      name: nextSession.name,
-      email: nextSession.email,
-      phone: nextSession.phone
-    });
-    setActiveTab("studio");
   }
 
   function logout() {
@@ -685,6 +684,8 @@ export default function App() {
         {loginOpen ? (
           <LoginPanel
             role={loginRole}
+            mode={loginMode}
+            setMode={setLoginMode}
             form={loginForm}
             setForm={setLoginForm}
             selectRole={selectLoginRole}
@@ -749,16 +750,17 @@ export default function App() {
   );
 }
 
-function LoginPanel({ role, form, setForm, selectRole, onSubmit, onClose }) {
+function LoginPanel({ role, mode, setMode, form, setForm, selectRole, onSubmit, onClose }) {
+  const isRegister = mode === "register";
   const roleCopy =
     role === "seller"
       ? {
-          title: "Seller login",
+          title: isRegister ? "Become a Seller" : "Seller login",
           subtitle: "Manage products, prices, customer orders, and order status.",
           icon: Store
         }
       : {
-          title: "Consumer login",
+          title: isRegister ? "Create Account" : "Consumer login",
           subtitle: "Customize gifts, checkout, save delivery details, and track orders.",
           icon: User
         };
@@ -776,6 +778,7 @@ function LoginPanel({ role, form, setForm, selectRole, onSubmit, onClose }) {
           </p>
           <h2 className="mt-2 text-3xl font-black">{roleCopy.title}</h2>
           <p className="mt-3 text-sm leading-6 text-white/75">{roleCopy.subtitle}</p>
+          
           <div className="mt-5 grid grid-cols-2 gap-2">
             <button
               type="button"
@@ -800,42 +803,64 @@ function LoginPanel({ role, form, setForm, selectRole, onSubmit, onClose }) {
               Seller
             </button>
           </div>
+          
+          <div className="mt-6 border-t border-white/10 pt-4">
+             <p className="text-xs font-bold text-white/50 uppercase tracking-widest">Auth Mode</p>
+             <div className="mt-2 flex gap-4">
+                <button 
+                  onClick={() => setMode("login")}
+                  className={`text-sm font-black ${mode === "login" ? "text-lemon underline underline-offset-4" : "text-white/70 hover:text-white"}`}
+                >
+                  Sign In
+                </button>
+                <button 
+                  onClick={() => setMode("register")}
+                  className={`text-sm font-black ${mode === "register" ? "text-lemon underline underline-offset-4" : "text-white/70 hover:text-white"}`}
+                >
+                  Create Account
+                </button>
+             </div>
+          </div>
         </div>
 
         <form onSubmit={onSubmit} className="grid gap-4">
+          {isRegister && (
+            <div className="grid gap-3 sm:grid-cols-2">
+              <Field
+                label="Full Name"
+                value={form.name}
+                onChange={(value) => setForm({ ...form, name: value })}
+              />
+              <Field
+                label="Phone (Optional)"
+                value={form.phone}
+                onChange={(value) => setForm({ ...form, phone: value })}
+              />
+            </div>
+          )}
+          
           <div className="grid gap-3 sm:grid-cols-2">
             <Field
-              label="Name"
-              value={form.name}
-              onChange={(value) => setForm({ ...form, name: value })}
-            />
-            <Field
-              label="Email"
+              label="Email Address"
               type="email"
               value={form.email}
               onChange={(value) => setForm({ ...form, email: value })}
             />
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2">
             <Field
-              label="Phone"
-              value={form.phone}
-              onChange={(value) => setForm({ ...form, phone: value })}
-            />
-            <Field
-              label="Password"
+              label="Secret Password"
               type="password"
               value={form.password}
               onChange={(value) => setForm({ ...form, password: value })}
             />
           </div>
-          <div className="flex flex-wrap gap-2">
+          
+          <div className="flex flex-wrap gap-2 pt-2">
             <button
               type="submit"
-              className="focus-ring inline-flex min-h-11 items-center gap-2 rounded-lg bg-coral px-4 text-sm font-black text-white hover:bg-[#df4937]"
+              className="focus-ring inline-flex min-h-11 items-center gap-2 rounded-lg bg-coral px-6 text-sm font-black text-white hover:bg-[#df4937]"
             >
               <LogIn size={17} aria-hidden="true" />
-              Login as {role === "seller" ? "seller" : "consumer"}
+              {isRegister ? "Register Now" : `Login as ${role}`}
             </button>
             <button
               type="button"
@@ -845,6 +870,12 @@ function LoginPanel({ role, form, setForm, selectRole, onSubmit, onClose }) {
               Close
             </button>
           </div>
+          
+          <p className="mt-2 text-xs text-slate-500">
+            {isRegister 
+              ? "By registering, you agree to our gift-giving terms." 
+              : "Welcome back to Giftora Studio."}
+          </p>
         </form>
       </div>
     </section>

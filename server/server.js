@@ -175,35 +175,52 @@ app.post("/api/products", async (req, res) => {
   res.status(201).json(cleanProduct(productData));
 });
 
-app.post("/api/auth/demo", async (req, res) => {
-  const { name, email, phone, role = "consumer", address } = req.body;
-  if (!name || !email) {
-    return res.status(400).json({ message: "Name and email are required" });
-  }
-  if (!["consumer", "seller"].includes(role)) {
-    return res.status(400).json({ message: "Invalid account role" });
+app.post("/api/auth/register", async (req, res) => {
+  const { name, email, password, phone, role = "consumer" } = req.body;
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: "Name, email, and password are required" });
   }
 
   if (mongoReady) {
-    const update = { name, phone, role };
-    if (address?.line1) {
-      update.$addToSet = { addresses: { label: "Default", ...address } };
+    try {
+      const existing = await User.findOne({ email });
+      if (existing) return res.status(409).json({ message: "Email already registered" });
+      const user = await User.create({ name, email, password, phone, role });
+      return res.status(201).json({ id: user._id, role: user.role, name: user.name, email: user.email, phone: user.phone });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
     }
-    const user = await User.findOneAndUpdate(
-      { email },
-      update,
-      { upsert: true, new: true }
-    );
-    return res.json({ id: user._id, role: user.role, name: user.name, email: user.email, phone: user.phone });
   }
 
   const existing = memoryStore.users.find((user) => user.email === email);
-  if (existing) {
-    Object.assign(existing, { name, phone, role });
-    return res.json(existing);
-  }
-  const user = { id: `usr-${Date.now()}`, role, name, email, phone, addresses: address ? [address] : [] };
+  if (existing) return res.status(409).json({ message: "Email already registered" });
+  const user = { id: `usr-${Date.now()}`, role, name, email, password, phone };
   memoryStore.users.push(user);
+  res.status(201).json(user);
+});
+
+app.post("/api/auth/login", async (req, res) => {
+  const { email, password, role } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required" });
+  }
+
+  if (mongoReady) {
+    const user = await User.findOne({ email });
+    if (!user || user.password !== password) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+    if (role && user.role !== role) {
+      return res.status(403).json({ message: `Access denied. Account is registered as ${user.role}.` });
+    }
+    return res.json({ id: user._id, role: user.role, name: user.name, email: user.email, phone: user.phone });
+  }
+
+  const user = memoryStore.users.find((u) => u.email === email && u.password === password);
+  if (!user) return res.status(401).json({ message: "Invalid email or password" });
+  if (role && user.role !== role) {
+    return res.status(403).json({ message: `Access denied. Account is registered as ${user.role}.` });
+  }
   res.json(user);
 });
 
