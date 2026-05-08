@@ -399,6 +399,7 @@ export default function App() {
     setLoginRole(role);
     setLoginMode(mode);
     setLoginOpen(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   async function handleLogin(event) {
@@ -461,6 +462,10 @@ export default function App() {
   }
 
   function handleTabClick(tab) {
+    setActiveTab(tab.id);
+    setLoginOpen(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    
     if (tab.role && session?.role !== tab.role) {
       openLogin(tab.role);
       setNotice(
