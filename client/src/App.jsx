@@ -388,7 +388,7 @@ export default function App() {
     if (loginOpen) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  }, [loginOpen]);
+  }, [loginOpen, loginMode]);
 
   function selectLoginRole(role) {
     setLoginRole(role);
