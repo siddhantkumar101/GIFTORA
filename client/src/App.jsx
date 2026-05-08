@@ -176,12 +176,7 @@ const statusFlow = [
   "Delivered"
 ];
 
-const tabs = [
-  { id: "studio", label: "Studio", icon: Sparkles },
-  { id: "cart", label: "Cart", icon: ShoppingCart, role: "consumer" },
-  { id: "orders", label: "Orders", icon: PackageCheck, role: "consumer" },
-  { id: "seller", label: "Admin Panel", icon: ShieldCheck, role: "seller" }
-];
+
 
 const placements = [
   { id: "top", label: "Top" },
@@ -261,14 +256,23 @@ function getSaved(key, fallback) {
 }
 
 export default function App() {
-  const [products, setProducts] = useState(fallbackProducts);
+  const [apiMode, setApiMode] = useState("connecting");
+  const [products, setProducts] = useState([]);
+  const [activeTab, setActiveTab] = useState("studio");
+  const [session, setSession] = useState(() => getSaved("giftora-session", null));
+
+  const tabs = useMemo(() => [
+    { id: "studio", label: "Studio", icon: Sparkles },
+    { id: "cart", label: "Cart", icon: ShoppingCart },
+    { id: "orders", label: "Orders", icon: Package },
+    ...(session?.role === "seller" ? [{ id: "seller", label: "Admin", icon: ShieldCheck }] : [])
+  ], [session]);
+
   const [selectedSlug, setSelectedSlug] = useState(fallbackProducts[0].slug);
   const [customizer, setCustomizer] = useState(defaultCustomizer);
   const [cart, setCart] = useState(() => getSaved("giftora-cart", []));
   const [orders, setOrders] = useState([]);
   const [adminOrders, setAdminOrders] = useState([]);
-  const [activeTab, setActiveTab] = useState("studio");
-  const [session, setSession] = useState(() => getSaved("giftora-session", null));
   const [loginOpen, setLoginOpen] = useState(false);
   const [loginMode, setLoginMode] = useState("login"); // "login" or "register"
   const [loginRole, setLoginRole] = useState("consumer");
@@ -722,23 +726,14 @@ export default function App() {
                 </button>
               </div>
             ) : (
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex items-center gap-3">
                 <button
                   type="button"
                   onClick={() => openLogin("consumer")}
-                  className="focus-ring group relative flex h-11 items-center gap-3 rounded-xl bg-slate-100 px-5 text-sm font-black transition-all hover:bg-slate-200"
+                  className="focus-ring group relative flex h-11 items-center gap-3 rounded-xl bg-ink px-6 text-sm font-black text-white transition-all hover:bg-slate-800"
                 >
-                  <User size={18} className="text-slate-400 group-hover:text-ink" />
-                  <span className="text-slate-700">Customer Studio</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => openLogin("seller")}
-                  className="focus-ring group relative flex h-11 items-center gap-3 rounded-xl bg-ink px-5 text-sm font-black text-white transition-all hover:bg-slate-800"
-                >
-                  <ShieldCheck size={18} className="text-coral" />
-                  <span>Admin Portal</span>
+                  <User size={18} className="text-coral" />
+                  <span>Login / Register</span>
                 </button>
               </div>
             )}
@@ -954,11 +949,10 @@ function LoginPanel({ role, mode, setMode, form, setForm, selectRole, onSubmit, 
 function StudioView({ apiMode, products, allProducts, selectedProduct, selectedSlug, setSelectedSlug, customizer, updateCustomizer, handleUpload, addToCart, search, setSearch }) {
   return (
     <div className="space-y-12 animate-fade-in">
-      <section className="text-center py-8 px-4">
-         <p className="text-[10px] font-black uppercase tracking-[0.3em] text-coral sm:text-xs">Personalization Studio</p>
-         <h2 className="mt-4 text-4xl font-black tracking-tighter sm:text-6xl text-ink leading-[1.1]">Design your perfect gift.</h2>
-         <p className="mt-6 mx-auto max-w-2xl text-base text-slate-500 font-medium leading-relaxed sm:text-lg">
-            Choose a premium blank from our collection and transform it into a meaningful memory using our live 3D preview engine.
+      <section className="text-center py-10 px-4">
+         <h2 className="text-4xl font-black tracking-tighter sm:text-7xl text-ink leading-[1.05]">Design your perfect gift.</h2>
+         <p className="mt-6 mx-auto max-w-xl text-base text-slate-500 font-medium leading-relaxed sm:text-xl">
+            Choose a premium item, add your personal touch, and see it come to life in real-time.
          </p>
       </section>
 
