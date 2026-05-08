@@ -96,6 +96,74 @@ const fallbackProducts = [
     colors: ["#111827", "#ffffff", "#92400e", "#0f766e"],
     customizationAreas: ["photo", "caption"],
     active: true
+  },
+  {
+    id: "acrylic-keychain",
+    slug: "acrylic-keychain",
+    name: "Acrylic Photo Keychain",
+    category: "Keychains",
+    price: 199,
+    compareAt: 299,
+    image: "https://images.unsplash.com/photo-1584622781564-1d9876a13d00?q=80&w=800&auto=format&fit=crop",
+    description: "Crystal clear acrylic keychain with double-sided photo printing.",
+    leadTime: "2 days",
+    rating: 4.5,
+    orders: 1540,
+    material: "Acrylic",
+    colors: ["#ffffff", "#000000"],
+    customizationAreas: ["front", "back"],
+    active: true
+  },
+  {
+    id: "comfort-cushion",
+    slug: "comfort-cushion",
+    name: "Comfort Photo Cushion",
+    category: "Cushions",
+    price: 499,
+    compareAt: 749,
+    image: "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?q=80&w=800&auto=format&fit=crop",
+    description: "Soft velvet cushion with full-bleed photo print and washable cover.",
+    leadTime: "3 days",
+    rating: 4.7,
+    orders: 830,
+    material: "Velvet",
+    colors: ["#ffffff", "#f8fafc", "#fef2f2"],
+    customizationAreas: ["full-front"],
+    active: true
+  },
+  {
+    id: "steel-bottle",
+    slug: "steel-bottle",
+    name: "Steel Insulated Bottle",
+    category: "Water Bottles",
+    price: 899,
+    compareAt: 1299,
+    image: "https://images.unsplash.com/photo-1602143303410-7199d123ad2c?q=80&w=800&auto=format&fit=crop",
+    description: "Double-walled steel bottle with laser-engraved name or logo.",
+    leadTime: "4 days",
+    rating: 4.9,
+    orders: 450,
+    material: "Stainless Steel",
+    colors: ["#1e293b", "#f1f5f9", "#ef4444", "#3b82f6"],
+    customizationAreas: ["front", "vertical"],
+    active: true
+  },
+  {
+    id: "modern-clock",
+    slug: "modern-clock",
+    name: "Modern Wall Clock",
+    category: "Wall Clocks",
+    price: 999,
+    compareAt: 1499,
+    image: "https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?q=80&w=800&auto=format&fit=crop",
+    description: "Silent movement wall clock with custom photo dial and sleek hands.",
+    leadTime: "5 days",
+    rating: 4.8,
+    orders: 310,
+    material: "Plastic & Glass",
+    colors: ["#ffffff", "#000000"],
+    customizationAreas: ["dial"],
+    active: true
   }
 ];
 
@@ -1115,8 +1183,12 @@ function ProductPreview({ product, customizer }) {
     "signature-mug": "mockup-mug",
     "memory-tee": "mockup-tee",
     "snap-cover": "mockup-phone",
-    "gallery-frame": "mockup-frame"
-  }[product.slug];
+    "gallery-frame": "mockup-frame",
+    "acrylic-keychain": "mockup-keychain",
+    "comfort-cushion": "mockup-cushion",
+    "steel-bottle": "mockup-bottle",
+    "modern-clock": "mockup-clock"
+  }[product.slug] || "mockup-generic";
 
   const fontClass = {
     Sans: "font-sans",
