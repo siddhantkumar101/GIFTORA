@@ -956,25 +956,25 @@ function LoginPanel({ role, mode, setMode, form, setForm, selectRole, onSubmit, 
 function StudioView({ apiMode, products, allProducts, selectedProduct, selectedSlug, setSelectedSlug, customizer, updateCustomizer, handleUpload, addToCart, search, setSearch }) {
   return (
     <div className="space-y-12 animate-fade-in">
-      <section className="text-center py-8">
-         <p className="text-xs font-black uppercase tracking-[0.3em] text-coral">Personalization Studio</p>
-         <h2 className="mt-4 text-5xl font-black tracking-tighter sm:text-6xl text-ink">Design your perfect gift.</h2>
-         <p className="mt-6 mx-auto max-w-2xl text-lg text-slate-500 font-medium leading-relaxed">
+      <section className="text-center py-8 px-4">
+         <p className="text-[10px] font-black uppercase tracking-[0.3em] text-coral sm:text-xs">Personalization Studio</p>
+         <h2 className="mt-4 text-4xl font-black tracking-tighter sm:text-6xl text-ink leading-[1.1]">Design your perfect gift.</h2>
+         <p className="mt-6 mx-auto max-w-2xl text-base text-slate-500 font-medium leading-relaxed sm:text-lg">
             Choose a premium blank from our collection and transform it into a meaningful memory using our live 3D preview engine.
          </p>
       </section>
 
       <section className="grid gap-12 lg:grid-cols-[1fr_420px]">
         <div className="space-y-8">
-           <div className="flex items-center justify-between border-b border-slate-100 pb-6">
-              <h3 className="text-2xl font-black">1. Choose a Product</h3>
-              <div className="relative">
+           <div className="flex flex-col gap-4 border-b border-slate-100 pb-6 sm:flex-row sm:items-center sm:justify-between">
+              <h3 className="text-xl font-black sm:text-2xl">1. Choose a Product</h3>
+              <div className="relative w-full sm:w-auto">
                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
                  <input 
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     placeholder="Search catalog..." 
-                    className="h-10 w-64 rounded-xl border border-slate-100 bg-white pl-10 pr-4 text-sm font-semibold outline-none focus:border-mint transition-all"
+                    className="h-11 w-full rounded-xl border border-slate-100 bg-white pl-10 pr-4 text-sm font-semibold outline-none focus:border-mint transition-all sm:w-64"
                  />
               </div>
            </div>
@@ -991,7 +991,7 @@ function StudioView({ apiMode, products, allProducts, selectedProduct, selectedS
         </div>
 
         <div className="space-y-8">
-           <h3 className="text-2xl font-black">2. Customize & Preview</h3>
+           <h3 className="text-xl font-black sm:text-2xl">2. Customize & Preview</h3>
            <PreviewPanel product={selectedProduct} customizer={customizer} />
            <CustomizerPanel
              selectedProduct={selectedProduct}
