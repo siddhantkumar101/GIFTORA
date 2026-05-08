@@ -779,7 +779,14 @@ export default function App() {
           />
         ) : null}
 
-        {activeTab === "studio" ? (
+        {!selectedProduct && activeTab === "studio" ? (
+          <div className="flex min-h-[400px] flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-slate-50/50 text-center animate-pulse">
+            <RefreshCcw className="mb-4 animate-spin text-coral" size={32} />
+            <p className="text-sm font-black uppercase tracking-widest text-slate-400">Loading your creative studio...</p>
+          </div>
+        ) : null}
+
+        {activeTab === "studio" && selectedProduct ? (
           <StudioView
             apiMode={apiMode}
             products={filteredProducts}
