@@ -722,52 +722,24 @@ export default function App() {
                 </button>
               </div>
             ) : (
-              <div className="flex flex-wrap items-center gap-4">
-                {/* Consumer Auth */}
-                <div className="flex flex-col items-center gap-1">
-                   <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Consumer</p>
-                   <div className="flex items-center rounded-xl bg-slate-100 p-1">
-                      <button
-                        type="button"
-                        onClick={() => openLogin("consumer", "login")}
-                        className="px-3 py-1.5 text-[10px] font-black uppercase tracking-widest text-slate-600 hover:text-ink transition-colors"
-                      >
-                        Login
-                      </button>
-                      <div className="w-[1px] h-3 bg-slate-300 mx-1" />
-                      <button
-                        type="button"
-                        onClick={() => openLogin("consumer", "register")}
-                        className="px-3 py-1.5 text-[10px] font-black uppercase tracking-widest text-slate-600 hover:text-ink transition-colors"
-                      >
-                        Join
-                      </button>
-                   </div>
-                </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => openLogin("consumer")}
+                  className="focus-ring group relative flex h-11 items-center gap-3 rounded-xl bg-slate-100 px-5 text-sm font-black transition-all hover:bg-slate-200"
+                >
+                  <User size={18} className="text-slate-400 group-hover:text-ink" />
+                  <span className="text-slate-700">Customer Studio</span>
+                </button>
 
-                <div className="h-8 w-[1px] bg-slate-200 hidden sm:block" />
-
-                {/* Admin Auth */}
-                <div className="flex flex-col items-center gap-1">
-                   <p className="text-[10px] font-black uppercase tracking-widest text-coral">Admin Panel</p>
-                   <div className="flex items-center rounded-xl bg-ink p-1">
-                      <button
-                        type="button"
-                        onClick={() => openLogin("seller", "login")}
-                        className="px-3 py-1.5 text-[10px] font-black uppercase tracking-widest text-white/70 hover:text-white transition-colors"
-                      >
-                        Login
-                      </button>
-                      <div className="w-[1px] h-3 bg-white/20 mx-1" />
-                      <button
-                        type="button"
-                        onClick={() => openLogin("seller", "register")}
-                        className="px-3 py-1.5 text-[10px] font-black uppercase tracking-widest text-white/70 hover:text-white transition-colors"
-                      >
-                        Join
-                      </button>
-                   </div>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => openLogin("seller")}
+                  className="focus-ring group relative flex h-11 items-center gap-3 rounded-xl bg-ink px-5 text-sm font-black text-white transition-all hover:bg-slate-800"
+                >
+                  <ShieldCheck size={18} className="text-coral" />
+                  <span>Admin Portal</span>
+                </button>
               </div>
             )}
           </div>
@@ -879,6 +851,45 @@ function LoginPanel({ role, mode, setMode, form, setForm, selectRole, onSubmit, 
           </p>
           <h2 className="mt-2 text-3xl font-black">{roleCopy.title}</h2>
           <p className="mt-3 text-sm leading-6 text-white/75">{roleCopy.subtitle}</p>
+          
+          <div className="mt-8 flex flex-col gap-3">
+             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40">Are you new?</p>
+             <div className="flex rounded-xl bg-white/5 p-1">
+                <button
+                  type="button"
+                  onClick={() => setMode("login")}
+                  className={`flex-1 rounded-lg py-2 text-xs font-black uppercase tracking-widest transition-all ${
+                    mode === "login" 
+                      ? "bg-white text-ink shadow-lg" 
+                      : "text-white/60 hover:text-white"
+                  }`}
+                >
+                  Sign In
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMode("register")}
+                  className={`flex-1 rounded-lg py-2 text-xs font-black uppercase tracking-widest transition-all ${
+                    mode === "register" 
+                      ? "bg-white text-ink shadow-lg" 
+                      : "text-white/60 hover:text-white"
+                  }`}
+                >
+                  Join Now
+                </button>
+             </div>
+          </div>
+          
+          <div className="mt-8 border-t border-white/10 pt-6">
+             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 mb-3">Wrong place?</p>
+             <button
+                type="button"
+                onClick={() => selectRole(role === "seller" ? "consumer" : "seller")}
+                className="text-xs font-bold text-lemon hover:text-white transition-colors underline underline-offset-4"
+             >
+                Switch to {role === "seller" ? "Customer" : "Admin"} mode
+             </button>
+          </div>
         </div>
 
         <form onSubmit={onSubmit} className="grid gap-4">
