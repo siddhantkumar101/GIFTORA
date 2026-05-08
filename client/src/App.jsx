@@ -36,7 +36,7 @@ const fallbackProducts = [
     category: "Mugs",
     price: 349,
     compareAt: 499,
-    image: "https://images.unsplash.com/photo-1514228742587-6b1558fbed20?q=80&w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1517142089942-ba376ce32a2e?q=80&w=800&auto=format&fit=crop",
     description: "Glossy 325 ml mug with wrap-around print area and gift-ready packaging.",
     leadTime: "2 days",
     rating: 4.8,
@@ -612,7 +612,7 @@ export default function App() {
             </div>
           </div>
 
-          <nav className="flex flex-wrap gap-2" aria-label="Giftora sections">
+          <nav className="flex items-center gap-1" aria-label="Giftora sections">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               const selected = activeTab === tab.id;
@@ -621,16 +621,12 @@ export default function App() {
                   key={tab.id}
                   type="button"
                   onClick={() => handleTabClick(tab)}
-                  className={`focus-ring inline-flex min-h-10 items-center gap-2 rounded-lg border px-3 text-sm font-bold transition ${
-                    selected
-                      ? "border-ink bg-ink text-white"
-                      : "border-slate-200 bg-white text-slate-700 hover:border-mint"
-                  }`}
+                  className={`nav-link flex items-center gap-2 text-sm font-bold ${selected ? "active" : ""}`}
                 >
-                  <Icon size={17} aria-hidden="true" />
+                  <Icon size={16} aria-hidden="true" />
                   {tab.label}
                   {tab.id === "cart" && cart.length > 0 ? (
-                    <span className="rounded-full bg-coral px-2 py-0.5 text-xs text-white">
+                    <span className="ml-1 rounded-full bg-coral px-2 py-0.5 text-[10px] text-white">
                       {cart.length}
                     </span>
                   ) : null}
@@ -641,20 +637,21 @@ export default function App() {
 
           <div className="flex flex-wrap items-center gap-2">
             {session ? (
-              <>
-                <span className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-mint/35 bg-mint/10 px-3 text-sm font-black text-teal-900">
-                  {session.role === "seller" ? <Store size={16} aria-hidden="true" /> : <User size={16} aria-hidden="true" />}
-                  {session.role === "seller" ? "Seller" : "Consumer"}: {session.name}
-                </span>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                   <div className="h-8 w-8 rounded-full bg-slate-100 flex items-center justify-center">
+                      {session.role === "seller" ? <ShieldCheck size={14} /> : <User size={14} />}
+                   </div>
+                   <span className="text-sm font-bold text-slate-700">{session.name}</span>
+                </div>
                 <button
                   type="button"
                   onClick={logout}
-                  className="focus-ring inline-flex min-h-10 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 text-sm font-bold text-slate-700 hover:border-coral hover:text-coral"
+                  className="text-sm font-bold text-slate-400 hover:text-coral transition-colors"
                 >
-                  <LogOut size={17} aria-hidden="true" />
                   Logout
                 </button>
-              </>
+              </div>
             ) : (
               <>
                 <button
@@ -888,95 +885,54 @@ function LoginPanel({ role, mode, setMode, form, setForm, selectRole, onSubmit, 
   );
 }
 
-function StudioView({
-  apiMode,
-  products,
-  allProducts,
-  selectedProduct,
-  selectedSlug,
-  setSelectedSlug,
-  customizer,
-  updateCustomizer,
-  handleUpload,
-  addToCart,
-  search,
-  setSearch
-}) {
+function StudioView({ apiMode, products, allProducts, selectedProduct, selectedSlug, setSelectedSlug, customizer, updateCustomizer, handleUpload, addToCart, search, setSearch }) {
   return (
-    <div className="space-y-6">
-      <section className="grid gap-5 lg:grid-cols-[0.95fr_1.05fr]">
-        <div className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-soft">
-          <div className="grid min-h-[320px] gap-0 md:grid-cols-[1.08fr_0.92fr]">
-            <div className="flex flex-col justify-between p-5 sm:p-7">
-              <div className="space-y-5">
-                <div className="inline-flex items-center gap-2 rounded-lg border border-mint/35 bg-mint/10 px-3 py-2 text-sm font-bold text-teal-900">
-                  <ShieldCheck size={17} aria-hidden="true" />
-                  MERN demo: {apiMode === "api" ? "API connected" : apiMode === "demo" ? "local fallback" : "connecting"}
-                </div>
-                <div>
-                  <h2 className="max-w-xl text-4xl font-black leading-[1.02] text-ink sm:text-5xl">
-                    Custom gifts made in one live studio.
-                  </h2>
-                  <p className="mt-4 max-w-xl text-base leading-7 text-slate-600">
-                    Select a product, upload an image, style your text, preview it live, and move straight to checkout.
-                  </p>
-                </div>
-              </div>
-              <div className="mt-6 grid grid-cols-3 gap-3 text-sm">
-                <Metric label="Products" value={allProducts.length} />
-                <Metric label="Lead time" value="2-4d" />
-                <Metric label="Demo pay" value="On" />
-              </div>
-            </div>
-            <div className="relative min-h-[280px] bg-slate-100">
-              <img
-                src="/images/giftora-product-studio.png"
-                alt="Personalized mugs, t-shirts, phone covers, and frames"
-                className="h-full min-h-[280px] w-full object-cover"
-              />
-            </div>
-          </div>
-        </div>
-
-        <CustomizerPanel
-          selectedProduct={selectedProduct}
-          customizer={customizer}
-          updateCustomizer={updateCustomizer}
-          handleUpload={handleUpload}
-          addToCart={addToCart}
-        />
+    <div className="space-y-12 animate-fade-in">
+      <section className="text-center py-8">
+         <p className="text-xs font-black uppercase tracking-[0.3em] text-coral">Personalization Studio</p>
+         <h2 className="mt-4 text-5xl font-black tracking-tighter sm:text-6xl text-ink">Design your perfect gift.</h2>
+         <p className="mt-6 mx-auto max-w-2xl text-lg text-slate-500 font-medium leading-relaxed">
+            Choose a premium blank from our collection and transform it into a meaningful memory using our live 3D preview engine.
+         </p>
       </section>
 
-      <section className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
-        <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-soft sm:p-5">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="text-sm font-bold uppercase tracking-[0.18em] text-coral">Catalog</p>
-              <h3 className="text-2xl font-black">Customizable products</h3>
-            </div>
-            <label className="focus-within:ring-mint/35 flex min-h-11 items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 ring-0 transition focus-within:ring-4">
-              <Search size={18} className="text-slate-500" aria-hidden="true" />
-              <input
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-                placeholder="Search gifts"
-                className="w-full bg-transparent text-sm outline-none"
-              />
-            </label>
-          </div>
-          <div className="mt-4 grid gap-3 sm:grid-cols-2">
-            {products.map((product) => (
-              <ProductCard
-                key={product.slug}
-                product={product}
-                selected={selectedSlug === product.slug}
-                onSelect={() => setSelectedSlug(product.slug)}
-              />
-            ))}
-          </div>
+      <section className="grid gap-12 lg:grid-cols-[1fr_420px]">
+        <div className="space-y-8">
+           <div className="flex items-center justify-between border-b border-slate-100 pb-6">
+              <h3 className="text-2xl font-black">1. Choose a Product</h3>
+              <div className="relative">
+                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+                 <input 
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="Search catalog..." 
+                    className="h-10 w-64 rounded-xl border border-slate-100 bg-white pl-10 pr-4 text-sm font-semibold outline-none focus:border-mint transition-all"
+                 />
+              </div>
+           </div>
+           <div className="grid gap-6 sm:grid-cols-2">
+             {products.map((product) => (
+               <ProductCard
+                 key={product.slug}
+                 product={product}
+                 selected={selectedSlug === product.slug}
+                 onSelect={() => setSelectedSlug(product.slug)}
+               />
+             ))}
+           </div>
         </div>
 
-        <PreviewPanel product={selectedProduct} customizer={customizer} />
+        <div className="space-y-8">
+           <h3 className="text-2xl font-black">2. Customize & Preview</h3>
+           <PreviewPanel product={selectedProduct} customizer={customizer} />
+           <CustomizerPanel
+             selectedProduct={selectedProduct}
+             customizer={customizer}
+             updateCustomizer={updateCustomizer}
+             handleUpload={handleUpload}
+             addToCart={addToCart}
+           />
+        </div>
       </section>
     </div>
   );
@@ -1197,38 +1153,35 @@ function ProductPreview({ product, customizer }) {
   );
 }
 
-function ProductCard({ product, onSelect }) {
+function ProductCard({ product, selected, onSelect }) {
   return (
-    <article className="glass-card overflow-hidden group hover-lift border-transparent hover:border-mint/30 transition-all duration-500">
-      <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
+    <article 
+      onClick={onSelect}
+      className={`relative cursor-pointer overflow-hidden rounded-2xl border transition-all duration-500 ${
+        selected 
+          ? "border-primary bg-white ring-4 ring-primary/5 shadow-xl" 
+          : "border-slate-100 bg-white hover:border-slate-200"
+      }`}
+    >
+      <div className="relative aspect-[4/3] overflow-hidden bg-slate-50">
         <img
           src={product.image}
           alt={product.name}
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+          className={`h-full w-full object-cover transition-transform duration-700 ${selected ? "scale-105" : "hover:scale-105"}`}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        <button
-          onClick={() => onSelect(product)}
-          className="absolute bottom-4 left-4 right-4 focus-ring h-11 translate-y-4 rounded-xl bg-white px-4 text-sm font-black text-ink opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100"
-        >
-          Customize this Gift
-        </button>
+        {selected && (
+          <div className="absolute right-3 top-3 grid h-6 w-6 place-items-center rounded-full bg-primary text-white shadow-lg">
+             <CheckCircle2 size={14} />
+          </div>
+        )}
       </div>
       <div className="p-5">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="text-[10px] font-black uppercase tracking-widest text-coral">{product.category}</p>
-            <h3 className="mt-1 text-xl font-black tracking-tight text-slate-800">{product.name}</h3>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">{product.category}</p>
+            <h4 className="mt-1 text-lg font-black tracking-tight text-ink">{product.name}</h4>
           </div>
-          <p className="text-lg font-black text-ink">{money(product.price)}</p>
-        </div>
-        <div className="mt-4 flex items-center gap-3 text-slate-500">
-          <div className="flex items-center gap-1 text-sm font-black text-amber-500">
-            <Star size={14} fill="currentColor" />
-            {product.rating}
-          </div>
-          <div className="h-1 w-1 rounded-full bg-slate-300" />
-          <p className="text-xs font-bold uppercase tracking-widest">{product.orders}+ custom designs</p>
+          <p className="text-base font-black text-ink">{money(product.price)}</p>
         </div>
       </div>
     </article>
@@ -1564,30 +1517,25 @@ function AdminView({ metrics, products, orders, saveProductPrice, addProduct, up
   }
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      <section className="glass-card p-6 sm:p-8">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.2em] text-coral">
-              <ShieldCheck size={14} aria-hidden="true" />
-              Administrative Control
-            </p>
-            <h2 className="mt-2 text-4xl font-black tracking-tight">Admin Dashboard</h2>
-          </div>
-          <button
-            onClick={() => setShowAdd(!showAdd)}
-            className="focus-ring inline-flex h-12 items-center gap-2 rounded-xl bg-ink px-6 text-sm font-black text-white hover:bg-slate-800 transition-all shadow-lg"
-          >
-            {showAdd ? <Clock3 size={18} /> : <Plus size={18} />}
-            {showAdd ? "Close Form" : "Add New Product"}
-          </button>
+    <div className="space-y-12 animate-fade-in pb-20">
+      <section className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="text-xs font-black uppercase tracking-[0.3em] text-coral">Administrative</p>
+          <h2 className="mt-2 text-4xl font-black tracking-tight text-ink">Dashboard</h2>
         </div>
+        <button
+          onClick={() => setShowAdd(!showAdd)}
+          className="focus-ring inline-flex h-12 items-center gap-2 rounded-xl bg-ink px-6 text-sm font-black text-white hover:bg-slate-800 transition-all shadow-lg"
+        >
+          {showAdd ? <Plus className="rotate-45" size={18} /> : <Plus size={18} />}
+          {showAdd ? "Close Panel" : "New Catalog Item"}
+        </button>
       </section>
 
       {showAdd && (
-        <section className="glass-card border-mint/30 bg-mint/5 p-6 animate-fade-in">
+        <section className="rounded-3xl border border-slate-100 bg-white p-8 animate-fade-in shadow-xl shadow-slate-200/50">
           <h2 className="text-xl font-black">Register New Product</h2>
-          <form onSubmit={handleAdd} className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <form onSubmit={handleAdd} className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             <Field
               label="Product Name"
               value={newProduct.name}
@@ -1598,7 +1546,7 @@ function AdminView({ metrics, products, orders, saveProductPrice, addProduct, up
               <select
                 value={newProduct.category}
                 onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}
-                className="focus-ring min-h-11 rounded-lg border border-slate-200 bg-white px-3 text-sm font-semibold"
+                className="focus-ring h-12 rounded-xl border border-slate-100 bg-slate-50 px-4 text-sm font-semibold outline-none"
               >
                 <option>Mugs</option>
                 <option>T-Shirts</option>
@@ -1625,66 +1573,64 @@ function AdminView({ metrics, products, orders, saveProductPrice, addProduct, up
         </section>
       )}
 
-      <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <AdminMetric icon={Boxes} label="Total Orders" value={metrics.placed} />
-        <AdminMetric icon={BarChart3} label="Gross Revenue" value={money(metrics.revenue)} />
-        <AdminMetric icon={CreditCard} label="Avg. Order Value" value={money(metrics.avgOrder)} />
-        <AdminMetric icon={Settings} label="System State" value={metrics.conversion} />
+      <section className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <AdminMetric icon={Boxes} label="Orders" value={metrics.placed} />
+        <AdminMetric icon={BarChart3} label="Revenue" value={money(metrics.revenue)} />
+        <AdminMetric icon={CreditCard} label="Avg Value" value={money(metrics.avgOrder)} />
+        <AdminMetric icon={Settings} label="System" value={metrics.conversion} />
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-        <div className="glass-card p-6">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-coral">Inventory</p>
-          <h2 className="mt-1 text-2xl font-black">Catalog Control</h2>
-          <div className="scrollbar-thin mt-6 max-h-[500px] space-y-4 overflow-auto pr-2">
+      <section className="grid gap-12 lg:grid-cols-[1fr_420px]">
+        <div className="space-y-6">
+          <h3 className="text-2xl font-black">Catalog Control</h3>
+          <div className="scrollbar-thin max-h-[600px] space-y-4 overflow-auto pr-4">
             {products.map((product) => (
-              <div key={product.slug} className="rounded-2xl border border-slate-100 bg-white/50 p-4 hover:border-mint transition-colors">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex gap-4">
-                     <img src={product.image} className="w-16 h-16 rounded-xl object-cover" alt="" />
-                     <div>
-                        <h3 className="font-black text-slate-800">{product.name}</h3>
-                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{product.category}</p>
-                     </div>
-                  </div>
-                  <label className="grid gap-1">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Price Adjustment</span>
-                    <input
+              <div key={product.slug} className="group flex items-center justify-between rounded-2xl border border-slate-100 bg-white p-4 hover:border-primary transition-all">
+                <div className="flex items-center gap-4">
+                   <img src={product.image} className="w-14 h-14 rounded-xl object-cover" alt="" />
+                   <div>
+                      <h3 className="font-black text-slate-800">{product.name}</h3>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{product.category}</p>
+                   </div>
+                </div>
+                <div className="flex items-center gap-4">
+                   <input
                       type="number"
                       min="1"
                       defaultValue={product.price}
                       onBlur={(event) => saveProductPrice(product.slug, event.target.value)}
-                      className="focus-ring h-10 w-24 rounded-lg border border-slate-200 bg-white px-3 text-sm font-bold"
-                    />
-                  </label>
+                      className="focus-ring h-10 w-20 rounded-xl border border-slate-100 bg-slate-50 px-3 text-sm font-bold text-center"
+                   />
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="glass-card p-6">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-coral">Fulfillment</p>
-          <h2 className="mt-1 text-2xl font-black">Order Queue</h2>
-          <div className="scrollbar-thin mt-6 max-h-[560px] space-y-4 overflow-auto pr-2">
+        <div className="space-y-6">
+          <h3 className="text-2xl font-black">Order Queue</h3>
+          <div className="scrollbar-thin max-h-[600px] space-y-4 overflow-auto pr-4">
             {orders.length === 0 ? (
-              <div className="grid min-h-44 place-items-center rounded-2xl border border-dashed border-slate-200 text-center">
-                <p className="font-bold text-slate-400">No active customer orders.</p>
+              <div className="grid min-h-44 place-items-center rounded-3xl border border-dashed border-slate-200 text-center">
+                <p className="font-bold text-slate-300">No active orders.</p>
               </div>
             ) : (
               orders.map((order) => (
-                <div key={order.orderNumber} className="rounded-2xl border border-slate-100 bg-white/50 p-4 hover:border-mint transition-colors">
-                  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                      <h3 className="font-black text-slate-800">{order.orderNumber}</h3>
-                      <p className="text-sm font-semibold text-slate-500">
-                        {order.customer?.name} | {money(order.totals?.grandTotal || 0)}
-                      </p>
+                <div key={order.orderNumber} className="rounded-2xl border border-slate-100 bg-white p-5 hover:border-primary transition-all">
+                  <div className="flex flex-col gap-4">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <h3 className="font-black text-slate-800">{order.orderNumber}</h3>
+                        <p className="text-sm font-semibold text-slate-500">
+                          {order.customer?.name}
+                        </p>
+                      </div>
+                      <p className="font-black text-ink">{money(order.totals?.grandTotal || 0)}</p>
                     </div>
                     <select
                       value={order.status}
                       onChange={(event) => updateOrderStatus(order.orderNumber, event.target.value)}
-                      className="focus-ring min-h-10 rounded-xl border border-slate-200 bg-white px-3 text-sm font-bold text-slate-700"
+                      className="focus-ring h-10 rounded-xl border border-slate-100 bg-slate-50 px-3 text-xs font-black text-slate-600 outline-none"
                     >
                       {statusFlow.map((status) => (
                         <option key={status} value={status}>
