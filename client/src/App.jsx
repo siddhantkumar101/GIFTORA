@@ -263,8 +263,10 @@ export default function App() {
 
   const tabs = useMemo(() => [
     { id: "studio", label: "Studio", icon: Sparkles },
-    { id: "cart", label: "Cart", icon: ShoppingCart },
-    { id: "orders", label: "Orders", icon: Package },
+    ...(session ? [
+      { id: "cart", label: "Cart", icon: ShoppingCart },
+      { id: "orders", label: "Orders", icon: Package },
+    ] : []),
     ...(session?.role === "seller" ? [{ id: "seller", label: "Admin", icon: ShieldCheck }] : [])
   ], [session]);
 
@@ -1128,23 +1130,33 @@ function CustomizerPanel({
           </label>
         </div>
 
-        <button
-          type="button"
-          onPointerDown={(event) => {
-            event.preventDefault();
-            addToCart();
-          }}
-          onKeyDown={(event) => {
-            if (event.key === "Enter" || event.key === " ") {
+        {session ? (
+          <button
+            type="button"
+            onPointerDown={(event) => {
               event.preventDefault();
               addToCart();
-            }
-          }}
-          className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-coral px-4 text-sm font-black text-white shadow-lg shadow-coral/25 transition hover:bg-[#df4937]"
-        >
-          <Plus size={18} aria-hidden="true" />
-          Add custom gift to cart
-        </button>
+            }}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                addToCart();
+              }
+            }}
+            className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-coral px-4 text-sm font-black text-white shadow-lg shadow-coral/25 transition hover:bg-[#df4937]"
+          >
+            <Plus size={18} aria-hidden="true" />
+            Add custom gift to cart
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={() => openLogin("consumer")}
+            className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-200 bg-white px-4 text-xs font-black uppercase tracking-widest text-slate-500 transition hover:border-coral hover:text-coral"
+          >
+            Login to Design & Buy
+          </button>
+        )}
       </div>
     </section>
   );
