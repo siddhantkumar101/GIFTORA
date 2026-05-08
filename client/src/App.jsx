@@ -1130,7 +1130,7 @@ function CustomizerPanel({
           </label>
         </div>
 
-        {session ? (
+        {session && (
           <button
             type="button"
             onPointerDown={(event) => {
@@ -1147,14 +1147,6 @@ function CustomizerPanel({
           >
             <Plus size={18} aria-hidden="true" />
             Add custom gift to cart
-          </button>
-        ) : (
-          <button
-            type="button"
-            onClick={() => openLogin("consumer")}
-            className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-200 bg-white px-4 text-xs font-black uppercase tracking-widest text-slate-500 transition hover:border-coral hover:text-coral"
-          >
-            Login to Design & Buy
           </button>
         )}
       </div>
