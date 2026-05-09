@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 require('dotenv').config({ path: './.env' });
 
 const updates = {
-  'acrylic-keychain': 'https://images.unsplash.com/photo-1596464716127-f2a82984de30?q=80&w=800&auto=format&fit=crop',
-  'modern-clock': 'https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?q=80&w=800&auto=format&fit=crop'
+  'snap-cover': 'https://images.unsplash.com/photo-1586105449897-20b5efeb3233?q=80&w=800&auto=format&fit=crop',
+  'acrylic-keychain': 'https://images.unsplash.com/photo-1560421833-2ca724baeb5f?q=80&w=800&auto=format&fit=crop'
 };
 
 mongoose.connect(process.env.MONGODB_URI).then(async () => {
