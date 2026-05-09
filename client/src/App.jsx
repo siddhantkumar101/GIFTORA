@@ -226,7 +226,7 @@ const blankAddress = {
 };
 
 async function api(path, options = {}) {
-  const baseUrl = "/api";
+  const baseUrl = import.meta.env.VITE_API_URL || "/api";
   const response = await fetch(`${baseUrl}${path}`, {
     headers: {
       "Content-Type": "application/json",
@@ -661,6 +661,15 @@ export default function App() {
   }
 
   async function addProduct(productData) {
+    const slug = productData.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    const localProduct = {
+      ...productData,
+      id: slug,
+      slug,
+      image: fallbackProducts[0].image, // Default image for local add
+      active: true
+    };
+
     try {
       const created = await api("/products", {
         method: "POST",
@@ -670,8 +679,10 @@ export default function App() {
       setNotice(`New product "${created.name}" added to catalog.`);
       return true;
     } catch (error) {
-      setNotice(`Failed to add product: ${error.message}`);
-      return false;
+      // Fallback: Add to local state so user can see it even if offline
+      setProducts((current) => [localProduct, ...current]);
+      setNotice(`Notice: ${error.message}. Product added locally only.`);
+      return true;
     }
   }
 
