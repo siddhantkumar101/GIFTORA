@@ -1073,12 +1073,12 @@ function StudioView({ apiMode, products, allProducts, selectedProduct, selectedS
            <div className="flex flex-col gap-4 border-b border-slate-100 pb-6 sm:flex-row sm:items-center sm:justify-between">
               <h3 className="text-xl font-black sm:text-2xl">1. Browse Products</h3>
               <div className="relative w-full sm:w-auto">
-                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-mint" size={18} />
                  <input 
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     placeholder="Search catalog..." 
-                    className="h-11 w-full rounded-xl border border-slate-100 bg-white pl-10 pr-4 text-sm font-semibold outline-none focus:border-mint transition-all sm:w-64"
+                    className="h-12 w-full rounded-xl border-2 border-mint/30 bg-mint/5 pl-10 pr-4 text-sm font-bold outline-none focus:border-mint focus:bg-white focus:ring-4 focus:ring-mint/20 transition-all sm:w-72 shadow-sm"
                  />
               </div>
            </div>
@@ -1094,10 +1094,9 @@ function StudioView({ apiMode, products, allProducts, selectedProduct, selectedS
            </div>
         </div>
 
-        {/* Right Column: Live Studio */}
+        {/* Right Column: Live Studio (Customizer Top, Preview Bottom) */}
         <div className="space-y-8" ref={customizerRef}>
            <h3 className="text-xl font-black sm:text-2xl">2. Customize & Preview</h3>
-           <PreviewPanel product={selectedProduct} customizer={customizer} />
            <CustomizerPanel
              selectedProduct={selectedProduct}
              customizer={customizer}
@@ -1106,6 +1105,10 @@ function StudioView({ apiMode, products, allProducts, selectedProduct, selectedS
              addToCart={addToCart}
              session={session}
            />
+           <div className="pt-4">
+              <p className="mb-4 text-sm font-bold uppercase tracking-widest text-slate-400 text-center">Live Product Proof</p>
+              <PreviewPanel product={selectedProduct} customizer={customizer} />
+           </div>
         </div>
       </section>
     </div>
