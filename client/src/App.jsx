@@ -236,8 +236,8 @@ async function api(path, options = {}) {
   });
 
   if (!response.ok) {
-    const error = await response.json().catch(() => ({ message: "Request failed" }));
-    throw new Error(error.message || "Request failed");
+    const error = await response.json().catch(() => ({ message: `Server error: ${response.status} ${response.statusText}` }));
+    throw new Error(error.message || `Request to ${path} failed`);
   }
 
   return response.json();
@@ -653,8 +653,8 @@ export default function App() {
       setProducts((current) =>
         current.map((product) => (product.slug === slug ? updated : product))
       );
-    } catch {
-      setNotice("Price saved locally. Start the API for database persistence.");
+    } catch (error) {
+      setNotice(`Notice: ${error.message}. Price saved locally only.`);
     }
   }
 
@@ -684,8 +684,8 @@ export default function App() {
         body: JSON.stringify({ active: false })
       });
       setNotice("Product removed from catalog.");
-    } catch {
-      setNotice("Product removed locally. Start API to persist.");
+    } catch (error) {
+      setNotice(`Notice: ${error.message}. Changes saved locally only.`);
     }
   }
 
@@ -717,8 +717,9 @@ export default function App() {
       const replace = (order) => (order.orderNumber === orderNumber ? updated : order);
       setAdminOrders((current) => current.map(replace));
       setOrders((current) => current.map(replace));
-    } catch {
-      setNotice("Order status saved locally. Start the API for database persistence.");
+      setNotice(`Order ${orderNumber} updated to ${status}.`);
+    } catch (error) {
+      setNotice(`Notice: ${error.message}. Changes saved locally only.`);
     }
   }
 
