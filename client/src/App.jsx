@@ -1067,14 +1067,37 @@ function StudioView({ apiMode, products, allProducts, selectedProduct, selectedS
          </p>
       </section>
 
-      <section className="grid gap-8 lg:grid-cols-[1fr_420px]">
+      <section className="grid gap-12 lg:grid-cols-[1fr_480px]">
+        {/* Left Column: Product Catalog */}
         <div className="space-y-8">
-           <h3 className="text-xl font-black sm:text-2xl">1. Customize & Preview</h3>
-           <div ref={customizerRef}>
-             <PreviewPanel product={selectedProduct} customizer={customizer} />
+           <div className="flex flex-col gap-4 border-b border-slate-100 pb-6 sm:flex-row sm:items-center sm:justify-between">
+              <h3 className="text-xl font-black sm:text-2xl">1. Browse Products</h3>
+              <div className="relative w-full sm:w-auto">
+                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+                 <input 
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    placeholder="Search catalog..." 
+                    className="h-11 w-full rounded-xl border border-slate-100 bg-white pl-10 pr-4 text-sm font-semibold outline-none focus:border-mint transition-all sm:w-64"
+                 />
+              </div>
+           </div>
+           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+             {products.map((product) => (
+               <ProductCard
+                 key={product.slug}
+                 product={product}
+                 selected={selectedSlug === product.slug}
+                 onSelect={() => handleProductSelect(product.slug)}
+               />
+             ))}
            </div>
         </div>
-        <div className="space-y-8">
+
+        {/* Right Column: Live Studio */}
+        <div className="space-y-8" ref={customizerRef}>
+           <h3 className="text-xl font-black sm:text-2xl">2. Customize & Preview</h3>
+           <PreviewPanel product={selectedProduct} customizer={customizer} />
            <CustomizerPanel
              selectedProduct={selectedProduct}
              customizer={customizer}
@@ -1084,31 +1107,6 @@ function StudioView({ apiMode, products, allProducts, selectedProduct, selectedS
              session={session}
            />
         </div>
-      </section>
-
-      <section className="space-y-8">
-         <div className="flex flex-col gap-4 border-b border-slate-100 pb-6 sm:flex-row sm:items-center sm:justify-between">
-            <h3 className="text-xl font-black sm:text-2xl">2. Browse Products</h3>
-            <div className="relative w-full sm:w-auto">
-               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
-               <input 
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search catalog..." 
-                  className="h-11 w-full rounded-xl border border-slate-100 bg-white pl-10 pr-4 text-sm font-semibold outline-none focus:border-mint transition-all sm:w-64"
-               />
-            </div>
-         </div>
-         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-           {products.map((product) => (
-             <ProductCard
-               key={product.slug}
-               product={product}
-               selected={selectedSlug === product.slug}
-               onSelect={() => handleProductSelect(product.slug)}
-             />
-           ))}
-         </div>
       </section>
     </div>
   );
