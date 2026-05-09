@@ -262,14 +262,18 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("studio");
   const [session, setSession] = useState(() => getSaved("giftora-session", null));
 
-  const tabs = useMemo(() => [
-    { id: "studio", label: "Studio", icon: Sparkles },
-    ...(session ? [
-      { id: "cart", label: "Cart", icon: ShoppingCart },
-      { id: "orders", label: "Orders", icon: Package },
-    ] : []),
-    ...(session?.role === "seller" ? [{ id: "seller", label: "Admin", icon: ShieldCheck }] : [])
-  ], [session]);
+  const tabs = useMemo(() => {
+    if (session?.role === "seller") {
+      return [{ id: "seller", label: "Admin", icon: ShieldCheck }];
+    }
+    return [
+      { id: "studio", label: "Studio", icon: Sparkles },
+      ...(session ? [
+        { id: "cart", label: "Cart", icon: ShoppingCart },
+        { id: "orders", label: "Orders", icon: Package },
+      ] : [])
+    ];
+  }, [session]);
 
   const [selectedSlug, setSelectedSlug] = useState(fallbackProducts[0].slug);
   const [customizer, setCustomizer] = useState(defaultCustomizer);
