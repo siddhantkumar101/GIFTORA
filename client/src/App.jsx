@@ -665,6 +665,22 @@ export default function App() {
     }
   }
 
+  async function deleteProduct(slug) {
+    if (!window.confirm("Are you sure you want to remove this item from the catalog?")) return;
+
+    setProducts((current) => current.filter((product) => product.slug !== slug));
+
+    try {
+      await api(`/products/${slug}`, {
+        method: "PATCH",
+        body: JSON.stringify({ active: false })
+      });
+      setNotice("Product removed from catalog.");
+    } catch {
+      setNotice("Product removed locally. Start API to persist.");
+    }
+  }
+
   async function updateOrderStatus(orderNumber, status) {
     const localUpdate = (order) =>
       order.orderNumber === orderNumber
@@ -862,6 +878,7 @@ export default function App() {
             saveProductPrice={saveProductPrice}
             addProduct={addProduct}
             updateOrderStatus={updateOrderStatus}
+            deleteProduct={deleteProduct}
           />
         ) : null}
       </main>
@@ -1617,7 +1634,7 @@ function OrderCard({ order }) {
   );
 }
 
-function AdminView({ metrics, products, orders, saveProductPrice, addProduct, updateOrderStatus }) {
+function AdminView({ metrics, products, orders, saveProductPrice, addProduct, updateOrderStatus, deleteProduct }) {
   const [showAdd, setShowAdd] = useState(false);
   const [newProduct, setNewProduct] = useState({
     name: "",
@@ -1720,6 +1737,13 @@ function AdminView({ metrics, products, orders, saveProductPrice, addProduct, up
                       onBlur={(event) => saveProductPrice(product.slug, event.target.value)}
                       className="focus-ring h-10 w-20 rounded-xl border border-slate-100 bg-slate-50 px-3 text-sm font-bold text-center"
                    />
+                   <button
+                     onClick={() => deleteProduct(product.slug)}
+                     className="focus-ring flex h-10 w-10 items-center justify-center rounded-xl border border-rose-100 bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-white transition-all"
+                     title="Remove from catalog"
+                   >
+                     <Trash2 size={16} />
+                   </button>
                 </div>
               </div>
             ))}
