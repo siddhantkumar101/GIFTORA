@@ -443,10 +443,12 @@ export default function App() {
 
       setSession(nextSession);
       setLoginOpen(false);
+      
+      const roleLabel = loginRole === "seller" ? "Admin" : "Customer";
       setNotice(
         isRegister
-          ? `Admin account created! Dashboard unlocked.`
-          : `Admin access granted. Welcome back.`
+          ? `${roleLabel} account created! Welcome to Giftora Studio.`
+          : `Welcome back, ${savedUser.name}!`
       );
 
       if (nextSession.role === "seller") {
