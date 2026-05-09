@@ -1049,6 +1049,15 @@ function LoginPanel({ role, mode, setMode, form, setForm, selectRole, onSubmit, 
 }
 
 function StudioView({ apiMode, products, allProducts, selectedProduct, selectedSlug, setSelectedSlug, customizer, updateCustomizer, handleUpload, addToCart, search, setSearch, session }) {
+  const customizerRef = useRef(null);
+
+  function handleProductSelect(slug) {
+    setSelectedSlug(slug);
+    setTimeout(() => {
+      customizerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  }
+
   return (
     <div className="space-y-12 animate-fade-in">
       <section className="text-center py-10 px-4">
@@ -1078,13 +1087,13 @@ function StudioView({ apiMode, products, allProducts, selectedProduct, selectedS
                  key={product.slug}
                  product={product}
                  selected={selectedSlug === product.slug}
-                 onSelect={() => setSelectedSlug(product.slug)}
+                 onSelect={() => handleProductSelect(product.slug)}
                />
              ))}
            </div>
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-8" ref={customizerRef}>
            <h3 className="text-xl font-black sm:text-2xl">2. Customize & Preview</h3>
            <PreviewPanel product={selectedProduct} customizer={customizer} />
            <CustomizerPanel
