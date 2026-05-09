@@ -5,17 +5,24 @@
   "private": true,
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "giftora-mern": "file:..",
+    "jsonwebtoken": "^9.0.3",
     "mongoose": "^8.10.1",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "cross-env": "^10.1.0",
+    "jest": "^30.4.2",
+    "nodemon": "^3.1.9",
+    "supertest": "^7.2.2"
   }
 }
