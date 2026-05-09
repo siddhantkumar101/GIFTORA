@@ -1357,6 +1357,8 @@ function ProductPreview({ product, customizer }) {
 }
 
 function ProductCard({ product, selected, onSelect }) {
+  const [loaded, setLoaded] = useState(false);
+
   return (
     <article 
       onClick={onSelect}
@@ -1367,13 +1369,16 @@ function ProductCard({ product, selected, onSelect }) {
       }`}
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-slate-50">
+        <div className={`absolute inset-0 bg-slate-200 animate-pulse transition-opacity duration-500 ${loaded ? "opacity-0" : "opacity-100"}`} />
         <img
           src={product.image}
           alt={product.name}
-          className={`h-full w-full object-cover transition-transform duration-700 ${selected ? "scale-105" : "hover:scale-105"}`}
+          loading="lazy"
+          onLoad={() => setLoaded(true)}
+          className={`relative z-10 h-full w-full object-cover transition-all duration-700 ${loaded ? "opacity-100" : "opacity-0"} ${selected ? "scale-105" : "hover:scale-105"}`}
         />
         {selected && (
-          <div className="absolute right-3 top-3 grid h-6 w-6 place-items-center rounded-full bg-primary text-white shadow-lg">
+          <div className="absolute right-3 top-3 z-20 grid h-6 w-6 place-items-center rounded-full bg-primary text-white shadow-lg">
              <CheckCircle2 size={14} />
           </div>
         )}
