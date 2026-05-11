@@ -103,43 +103,45 @@ h1, h2, h3, h4, .font-heading {
 
 @media (max-width: 768px) {
   :root {
-    --radius: 1rem;
+    --radius: 1.25rem;
   }
   
   body {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .glass-card {
-    border-radius: 16px;
-    padding: 1rem !important;
+    border-radius: 20px;
+    padding: 1.25rem !important;
   }
 
   .preview-stage {
-    min-height: 350px;
+    min-height: 400px;
   }
 
   .mockup-mug {
-    width: 160px;
-    height: 140px;
+    width: 170px;
+    height: 150px;
   }
 
-  .mockup-mug::after {
-    right: -25px;
-    top: 25px;
-    width: 50px;
-    height: 60px;
-    border-width: 10px;
+  h1 { font-size: 2.25rem !important; line-height: 1.1 !important; }
+  h2 { font-size: 1.75rem !important; }
+  h3 { font-size: 1.5rem !important; }
+  
+  .section-padding {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
-
-  h1 { font-size: 1.75rem !important; }
-  h2 { font-size: 1.5rem !important; }
-  h3 { font-size: 1.25rem !important; }
 }
 
 @media (max-width: 480px) {
+  h1 { font-size: 2rem !important; }
   .preview-stage {
-    min-height: 300px;
+    min-height: 320px;
+  }
+  .nav-link {
+    padding: 6px 12px;
+    font-size: 12px;
   }
 }
 

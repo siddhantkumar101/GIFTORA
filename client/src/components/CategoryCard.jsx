@@ -9,7 +9,7 @@ export default function CategoryCard({ category, image, subtitle, count, onClick
   return (
     <div 
       onClick={onClick}
-      className="group relative h-48 overflow-hidden rounded-[32px] border border-slate-100 bg-white cursor-pointer shadow-sm hover:shadow-2xl transition-all duration-700"
+      className="group relative h-32 sm:h-48 overflow-hidden rounded-[24px] sm:rounded-[32px] border border-slate-100 bg-white cursor-pointer shadow-sm hover:shadow-2xl transition-all duration-700"
     >
       <div className="absolute inset-0 z-0">
         <img 

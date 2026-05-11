@@ -17,9 +17,9 @@ export default function LoginPanel({ role, mode, setMode, form, setForm, selectR
   const Icon = roleCopy.icon;
 
   return (
-    <section className="mb-5 rounded-lg border border-slate-200 bg-white p-4 shadow-soft sm:p-5">
-      <div className="grid gap-5 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-        <div className="rounded-lg bg-ink p-5 text-white">
+    <section className="mb-5 rounded-2xl sm:rounded-3xl border border-slate-200 bg-white p-3 sm:p-5 shadow-soft">
+      <div className="grid gap-4 sm:gap-5 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+        <div className="rounded-xl sm:rounded-2xl bg-ink p-4 sm:p-6 text-white">
           <div className="grid h-12 w-12 place-items-center rounded-lg bg-white/12">
             <Icon size={24} aria-hidden="true" />
           </div>

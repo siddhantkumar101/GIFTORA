@@ -43,7 +43,7 @@ export default function StudioView({
          </p>
       </section>
 
-      <section className="grid gap-12 md:grid-cols-[1fr_480px] lg:grid-cols-[1fr_480px]">
+      <section className="grid gap-10 md:gap-12 grid-cols-1 lg:grid-cols-[1fr_420px]">
         {/* Left Column: Product Catalog */}
         <div className="space-y-8 overflow-y-auto col-scroll">
             <div className="flex flex-col gap-6 border-b border-slate-100 pb-6 sm:flex-row sm:items-center sm:justify-between">

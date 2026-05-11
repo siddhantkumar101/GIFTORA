@@ -51,7 +51,7 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
   return (
     <div className="animate-fade-in pb-20">
       {/* Hero Section - Restored to Static Elegant Version */}
-      <section className="relative h-[600px] w-full overflow-hidden mb-20 bg-slate-900">
+      <section className="relative h-[500px] sm:h-[600px] w-full overflow-hidden mb-16 sm:mb-24 bg-slate-900">
         <img 
           src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=90&w=1600" 
           className="absolute inset-0 h-full w-full object-cover opacity-60" 
@@ -94,7 +94,7 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
           <div className="h-1.5 w-24 bg-mint mx-auto rounded-full" />
         </div>
         
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {(products.length > 0 ? 
             // Derive categories from products
             Object.values(products.reduce((acc, p) => {
@@ -140,7 +140,7 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
           </button>
         </div>
         
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {featuredProducts.length > 0 ? (
             featuredProducts.map((p) => (
               <ProductCard 
@@ -164,7 +164,7 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
 
       {/* Trust Bar */}
       <section className="max-w-7xl mx-auto px-4 mb-32">
-         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-8 rounded-[40px] bg-slate-50 border border-slate-100">
+         <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4 p-6 sm:p-8 rounded-[30px] sm:rounded-[40px] bg-slate-50 border border-slate-100">
             {[
                { icon: Gift, label: "Premium Packaging" },
                { icon: Truck, label: "Express Delivery" },
@@ -184,8 +184,8 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
       <Testimonials />
 
       {/* Final CTA */}
-      <section className="mt-20 mx-4 max-w-7xl lg:mx-auto rounded-[60px] bg-mint p-16 text-center text-ink relative overflow-hidden">
-        <h2 className="text-4xl font-black mb-6 leading-tight">Create your next memory.</h2>
+      <section className="mt-20 mx-4 max-w-7xl lg:mx-auto rounded-[40px] sm:rounded-[60px] bg-mint p-10 sm:p-16 text-center text-ink relative overflow-hidden">
+        <h2 className="text-3xl sm:text-4xl font-black mb-6 leading-tight">Create your next memory.</h2>
         <p className="text-ink/60 max-w-md mx-auto mb-10 text-base font-bold">
           Step into our studio and experience real-time gift design.
         </p>
