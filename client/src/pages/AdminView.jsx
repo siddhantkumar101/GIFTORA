@@ -53,7 +53,6 @@ export default function AdminView({ metrics, products, orders, updateProduct, ad
   useEffect(() => {
     const handleGlobalPaste = (e) => {
       if (!showPanel) return;
-      // Don't intercept if user is typing in an input (except URL input)
       const target = e.target;
       if (target.tagName === 'INPUT' && target.placeholder !== 'Or paste URL' && target.placeholder !== 'Unsplash URL') return;
 
@@ -83,9 +82,6 @@ export default function AdminView({ metrics, products, orders, updateProduct, ad
       setForm({ ...form, image: reader.result });
     };
     reader.readAsDataURL(file);
-  }
-
-    }
   }
 
   return (
