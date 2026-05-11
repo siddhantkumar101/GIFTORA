@@ -230,3 +230,16 @@ h1, h2, h3, h4, .font-heading {
   background: rgba(20, 184, 166, 0.1);
   color: var(--primary);
 }
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-100% - 2rem)); }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
