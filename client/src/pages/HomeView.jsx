@@ -96,33 +96,32 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
           <div className="h-0.5 w-10 sm:h-1.5 sm:w-24 bg-mint mx-auto rounded-full" />
         </div>
         
-        <div className="grid grid-cols-2 gap-2.5 sm:gap-8 w-full">
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-8 w-full overflow-hidden">
           {(products.length > 0 ? 
             // Derive categories from products
             Object.values(products.reduce((acc, p) => {
               const cat = p.category || "Other";
               if (!acc[cat]) {
                 acc[cat] = {
-                  id: cat.toLowerCase(),
-                  name: cat,
-                  subtitle: `Discover our ${cat} collection`,
-                  image: p.image,
-                  count: 0
+                  category: cat,
+                  count: 0,
+                  image: p.image || placeholderImg,
+                  subtitle: `Discover our ${cat} collection`
                 };
               }
               acc[cat].count++;
               return acc;
             }, {}))
             : categories // Fallback to static if no products
-          ).slice(0, 4).map((cat) => (
-            <div key={cat.id} className="min-w-0 w-full">
+          ).slice(0, 4).map((cat, i) => (
+            <div key={i} className="min-w-0 w-full overflow-hidden">
               <CategoryCard 
-                category={cat.name}
+                category={cat.category || cat.name}
                 image={cat.image || placeholderImg}
                 subtitle={cat.subtitle}
                 count={cat.count}
                 onClick={() => {
-                  navigate("/studio");
+                  navigate(`/studio?category=${cat.category || cat.id}`);
                   window.scrollTo(0, 0);
                 }} 
               />
@@ -143,10 +142,10 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
           </button>
         </div>
         
-        <div className="grid grid-cols-2 gap-2 sm:gap-8 lg:grid-cols-4 w-full">
+        <div className="grid grid-cols-2 gap-2 sm:gap-8 lg:grid-cols-4 w-full overflow-hidden">
           {featuredProducts.length > 0 ? (
             featuredProducts.map((p) => (
-              <div key={p.id} className="min-w-0">
+              <div key={p.id} className="min-w-0 w-full overflow-hidden">
                 <ProductCard 
                   product={p} 
                   selected={false} 
@@ -159,7 +158,7 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
             ))
           ) : (
             // Skeleton / Loading state
-            Array(4).fill(0).map((_, i) => (
+            [1,2,3,4].map((i) => (
               <div key={i} className="aspect-square rounded-2xl bg-slate-100 animate-pulse" />
             ))
           )}
