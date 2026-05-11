@@ -19,7 +19,7 @@ const occasions = [
   { id: "kids", name: "For Kids", icon: Baby, color: "bg-orange-50 text-orange-500" },
   { id: "couple", name: "For Couples", icon: Users, color: "bg-purple-50 text-purple-500" },
   { id: "corporate", name: "Corporate", icon: Briefcase, color: "bg-slate-50 text-slate-500" },
-  { id: "new", name: "New Arrivals", icon: Sparkles, color: "bg-mint/10 text-mint" },
+  { id: "new", name: "New", icon: Sparkles, color: "bg-mint/10 text-mint" },
 ];
 
 export default function HomeView({ products = [], apiMode = "connecting" }) {
@@ -29,25 +29,25 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
   const featuredProducts = [...displayProducts].sort((a, b) => (b.orders || 0) - (a.orders || 0)).slice(0, 8);
 
   return (
-    <div className="pb-24 w-full overflow-hidden flex flex-col items-center">
+    <div className="pb-24 w-full overflow-x-hidden">
       
-      {/* 📱 MOBILE-ONLY NATIVE EXPERIENCE */}
-      <div className="block sm:hidden space-y-10 w-full">
+      {/* 📱 MOBILE-ONLY VIEW */}
+      <div className="block sm:hidden space-y-10 w-full overflow-x-hidden">
         
-        {/* Search Header */}
-        <div className="pt-2 px-4">
-          <div className="relative">
+        {/* Search */}
+        <div className="pt-2 px-4 w-full box-border">
+          <div className="relative w-full">
             <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
             <input 
               type="text" 
               placeholder="Who are you shopping for?"
-              className="w-full bg-slate-100 border-none h-12 pl-12 pr-4 rounded-2xl text-sm font-medium focus:ring-0"
+              className="w-full bg-slate-100 border-none h-12 pl-12 pr-4 rounded-2xl text-sm font-medium"
             />
           </div>
         </div>
 
-        {/* Stories */}
-        <div className="overflow-hidden">
+        {/* Categories */}
+        <div className="w-full overflow-hidden">
           <div className="flex overflow-x-auto scrollbar-none gap-5 px-4 pb-2">
             {categories.map((cat) => (
               <button key={cat.id} onClick={() => navigate(`/studio?category=${cat.id}`)} className="flex flex-col items-center gap-2 shrink-0">
@@ -60,18 +60,14 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
           </div>
         </div>
 
-        {/* NEW Occasion Grid Replacement for Hero */}
-        <div className="px-4">
-          <div className="bg-white rounded-[32px] p-6 shadow-soft border border-slate-50">
+        {/* Shop by Recipient - Hardened Centering */}
+        <div className="px-4 w-full box-border">
+          <div className="bg-white rounded-[32px] p-6 shadow-soft border border-slate-50 w-full box-border">
             <h2 className="text-xl font-black text-ink mb-5">Shop by Recipient</h2>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-4 w-full">
               {occasions.map((occ) => (
-                <button 
-                  key={occ.id}
-                  onClick={() => navigate("/studio")}
-                  className="flex flex-col items-center gap-2 group"
-                >
-                  <div className={`w-14 h-14 rounded-2xl ${occ.color} flex items-center justify-center group-active:scale-90 transition-transform`}>
+                <button key={occ.id} onClick={() => navigate("/studio")} className="flex flex-col items-center gap-2">
+                  <div className={`w-14 h-14 rounded-2xl ${occ.color} flex items-center justify-center`}>
                     <occ.icon size={22} />
                   </div>
                   <span className="text-[9px] font-black text-slate-400 uppercase tracking-tight text-center">{occ.name}</span>
@@ -81,9 +77,9 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
           </div>
         </div>
 
-        {/* RE-IMPLEMENTED MOVING STRIP (Marquee) */}
-        <div className="bg-ink py-3.5 overflow-hidden">
-          <div className="flex animate-marquee whitespace-nowrap gap-12 items-center">
+        {/* Marquee - Extra Safe Wrapper */}
+        <div className="w-full overflow-hidden bg-ink py-4">
+          <div className="flex animate-marquee whitespace-nowrap gap-12 items-center w-max">
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div key={i} className="flex items-center gap-3">
                 <Sparkles size={14} className="text-coral" />
@@ -93,15 +89,13 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
           </div>
         </div>
 
-        {/* Products Scroll */}
-        <div>
+        {/* Bestsellers */}
+        <div className="w-full overflow-hidden">
           <div className="flex items-center justify-between mb-5 px-4">
             <h3 className="text-xl font-black text-ink">Bestsellers</h3>
-            <button onClick={() => navigate("/studio")} className="flex items-center gap-1 text-[11px] font-black text-coral uppercase tracking-widest">
-              Explore All <ChevronRight size={14} />
-            </button>
+            <button onClick={() => navigate("/studio")} className="text-[11px] font-black text-coral uppercase tracking-widest">See All</button>
           </div>
-          <div className="flex overflow-x-auto gap-4 pb-4 scrollbar-none snap-x snap-mandatory px-4">
+          <div className="flex overflow-x-auto gap-4 pb-4 scrollbar-none snap-x snap-mandatory px-4 w-full">
             {featuredProducts.map((p) => (
               <div key={p.id} className="min-w-[175px] w-[175px] snap-start">
                 <ProductCard product={p} selected={false} onSelect={() => navigate("/studio")} />
