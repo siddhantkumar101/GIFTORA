@@ -51,11 +51,11 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
   return (
     <div className="animate-fade-in pb-20">
       {/* Hero Section - Restored to Static Elegant Version */}
-      <section className="relative h-[400px] sm:h-[600px] w-full overflow-hidden mb-12 sm:mb-24 bg-slate-900">
+      <section className="relative h-[280px] sm:h-[600px] w-full overflow-hidden mb-8 sm:mb-24 bg-slate-900">
         <div className="absolute inset-0 w-full h-full">
           <img 
             src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=90&w=1600" 
-            className="h-full w-full object-cover opacity-60 scale-110 sm:scale-100" 
+            className="h-full w-full object-cover opacity-60 scale-125 sm:scale-100" 
             alt="Giftora Hero" 
           />
         </div>
@@ -90,13 +90,13 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
       </section>
 
       {/* Categories Section */}
-      <section id="shop-categories" className="mb-16 sm:mb-32 px-4 max-w-full lg:max-w-7xl mx-auto overflow-hidden">
-        <div className="text-center mb-8 sm:mb-16">
-          <h2 className="text-xl sm:text-4xl font-black text-ink mb-1.5 sm:mb-3 text-center">Shop by Gift Type</h2>
-          <div className="h-0.5 w-12 sm:h-1.5 sm:w-24 bg-mint mx-auto rounded-full" />
+      <section id="shop-categories" className="mb-12 sm:mb-32 px-3 sm:px-4 max-w-full lg:max-w-7xl mx-auto overflow-hidden">
+        <div className="text-center mb-6 sm:mb-16">
+          <h2 className="text-lg sm:text-4xl font-black text-ink mb-1 sm:mb-3 text-center">Shop by Gift Type</h2>
+          <div className="h-0.5 w-10 sm:h-1.5 sm:w-24 bg-mint mx-auto rounded-full" />
         </div>
         
-        <div className="grid gap-3 sm:gap-8 grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-8">
           {(products.length > 0 ? 
             // Derive categories from products
             Object.values(products.reduce((acc, p) => {
@@ -131,18 +131,18 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
       </section>
 
       {/* Bestsellers Section */}
-      <section className="mb-12 sm:mb-32 px-4 max-w-7xl mx-auto">
+      <section className="mb-12 sm:mb-32 px-3 sm:px-4 max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-5 sm:mb-12">
           <h2 className="text-lg sm:text-3xl font-black text-ink">Bestsellers</h2>
           <button 
              onClick={() => navigate("/studio")}
-             className="text-[8px] sm:text-xs font-black text-orange-500 uppercase tracking-[0.2em] hover:text-ink transition-colors border-b border-orange-500/20 pb-0.5"
+             className="text-[8px] sm:text-xs font-black text-orange-500 uppercase tracking-widest hover:text-ink transition-colors"
           >
             View All
           </button>
         </div>
         
-        <div className="grid gap-3 sm:gap-8 grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2.5 sm:gap-8 lg:grid-cols-4">
           {featuredProducts.length > 0 ? (
             featuredProducts.map((p) => (
               <ProductCard 
