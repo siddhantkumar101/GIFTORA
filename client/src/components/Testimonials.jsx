@@ -17,7 +17,7 @@ export default function Testimonials() {
         <h2 className="text-2xl sm:text-5xl font-black text-ink leading-tight">What Our Community Says</h2>
       </div>
       
-      <div className="relative flex w-full">
+      <div className="relative flex w-full overflow-hidden">
         <div className="animate-marquee flex gap-8 whitespace-nowrap py-4">
           {[...reviews, ...reviews, ...reviews].map((review, i) => (
             <TestimonialCard key={`${review.id}-${i}`} review={review} />

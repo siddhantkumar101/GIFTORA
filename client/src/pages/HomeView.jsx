@@ -59,11 +59,11 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
             alt="Giftora Hero" 
           />
         </div>
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6 text-white">
-          <h1 className="text-2xl sm:text-7xl font-serif font-bold mb-3 sm:mb-6 drop-shadow-2xl max-w-xs sm:max-w-4xl leading-[1.1] sm:leading-tight">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-4 text-white">
+          <h1 className="text-xl sm:text-7xl font-serif font-bold mb-2 sm:mb-6 drop-shadow-2xl max-w-[260px] sm:max-w-4xl leading-[1.1] sm:leading-tight">
             Perfect Gifts for <br /> Every Occasion
           </h1>
-          <p className="text-sm sm:text-2xl font-medium mb-6 sm:mb-10 opacity-90 drop-shadow-lg max-w-[280px] sm:max-w-2xl">
+          <p className="text-xs sm:text-2xl font-medium mb-5 sm:mb-10 opacity-90 drop-shadow-lg max-w-[240px] sm:max-w-2xl">
             Discover unique presents that tell your story
           </p>
           <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
