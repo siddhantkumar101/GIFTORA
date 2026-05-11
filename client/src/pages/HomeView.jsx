@@ -52,10 +52,10 @@ const categories = [
 ];
 
 const heroImages = [
-  "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?q=80&w=1600",
-  "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=1600",
-  "https://images.unsplash.com/photo-1512418490979-92798ccc1380?q=80&w=1600",
-  "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600"
+  "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=1200",
+  "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=1200",
+  "https://images.unsplash.com/photo-1512418490979-92798ccc1380?w=1200",
+  "https://images.unsplash.com/photo-1572021335469-3171624c1c5c?w=1200"
 ];
 
 export default function HomeView() {
@@ -78,7 +78,7 @@ export default function HomeView() {
   return (
     <div className="animate-fade-in pb-20">
       {/* Dynamic Hero Slider */}
-      <section className="relative h-[600px] w-full overflow-hidden mb-20">
+      <section className="relative h-[500px] w-full overflow-hidden mb-20">
         {heroImages.map((img, i) => (
           <div 
             key={i}
