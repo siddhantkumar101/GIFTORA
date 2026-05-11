@@ -10,42 +10,42 @@ const categories = [
     id: "birthday",
     name: "Birthday Gifts",
     subtitle: "Make their day special with a personal touch",
-    image: "https://images.unsplash.com/photo-1530103043960-ef38714abb15?q=80&w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?q=80&w=800",
     count: 15
   },
   {
     id: "anniversary",
     name: "Anniversary Gifts",
     subtitle: "Celebrate your love with timeless memories",
-    image: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?q=80&w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?q=80&w=800",
     count: 12
   },
   {
     id: "personalized",
     name: "Personalized Items",
     subtitle: "Unique gifts crafted specifically for you",
-    image: "https://images.unsplash.com/photo-1517142089942-ba376ce32a2e?q=80&w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?q=80&w=800",
     count: 45
   },
   {
     id: "corporate",
     name: "Corporate Gifting",
     subtitle: "Professional gifts for your valued partners",
-    image: "https://images.unsplash.com/photo-1512418490979-92798ccc1380?q=80&w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1512418490979-92798ccc1380?q=80&w=800",
     count: 20
   },
   {
     id: "handmade",
     name: "Handmade Crafts",
     subtitle: "Artisan products made with passion",
-    image: "https://images.unsplash.com/photo-1481833761820-0509d3217039?q=80&w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1517256011271-bf0097743744?q=80&w=800",
     count: 18
   },
   {
     id: "luxury",
     name: "Luxury Collection",
     subtitle: "Premium gifts for the most refined tastes",
-    image: "https://images.unsplash.com/photo-1603006905003-be475563bc59?q=80&w=800&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1603006905003-be475563bc59?q=80&w=800",
     count: 10
   }
 ];
