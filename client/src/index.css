@@ -217,6 +217,15 @@ h1, h2, h3, h4, .font-heading {
   background: #cbd5e1;
 }
 
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Animations */
 
 /* Nuclear fix for mobile overflow */
