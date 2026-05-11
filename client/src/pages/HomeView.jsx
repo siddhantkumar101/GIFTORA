@@ -39,7 +39,7 @@ const categories = [
     id: "corporate",
     name: "Corporate Gifts",
     subtitle: "Professional gifts for valued partners",
-    image: "https://images.unsplash.com/photo-1512418490979-92798ccc1380?w=500",
+    image: "https://images.unsplash.com/photo-1523293836414-f04e712e1f3b?w=500",
     count: 67
   },
   {
