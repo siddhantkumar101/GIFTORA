@@ -24,6 +24,9 @@ export default function ProductCard({ product, selected, onSelect }) {
           onError={(e) => { 
             if (e.target.src !== placeholderImage) {
               e.target.src = placeholderImage; 
+            } else {
+              // Final fallback to a very common gift image
+              e.target.src = "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=400";
             }
           }}
           className={`relative z-10 h-full w-full object-cover transition-all duration-700 ${selected ? "scale-105" : "hover:scale-105"}`}
