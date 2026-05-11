@@ -329,11 +329,11 @@ export default function App() {
       <header className="sticky top-0 z-40 border-b border-slate-100 bg-white/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
           <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate("/")}>
-            <div className="grid h-11 w-11 place-items-center rounded-lg bg-ink text-white">
-              <Sparkles size={22} aria-hidden="true" />
+            <div className="grid h-11 w-11 place-items-center rounded-lg bg-ink text-white ring-4 ring-orange-500/10 transition-all hover:ring-orange-500/20">
+              <Sparkles size={22} className="text-orange-500" aria-hidden="true" />
             </div>
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.22em] text-coral">Giftora</p>
+              <p className="text-xs font-bold uppercase tracking-[0.22em] text-orange-500">Premium</p>
               <h1 className="text-xl font-black leading-tight sm:text-2xl">Giftora Studio</h1>
             </div>
           </div>

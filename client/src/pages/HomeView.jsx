@@ -66,7 +66,7 @@ export default function HomeView() {
         <p className="text-xs font-black uppercase tracking-[0.4em] text-orange-500 mb-6">India's Premium Gifting Studio</p>
         <h2 className="text-6xl font-black tracking-tighter sm:text-9xl text-ink leading-[1] mb-8">
           Personalized <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-mint to-teal-600 italic">With Love.</span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-[#14b8a6] to-teal-600 italic">With Love.</span>
         </h2>
         <p className="mt-8 mx-auto max-w-2xl text-lg text-slate-500 font-medium leading-relaxed sm:text-2xl mb-12">
           Design premium gifts in real-time. From corporate kits to artisan hampers, we bring your vision to life.
