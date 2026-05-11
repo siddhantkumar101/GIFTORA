@@ -9,44 +9,44 @@ const categories = [
   {
     id: "birthday",
     name: "Birthday Gifts",
-    subtitle: "Make their day special with a personal touch",
-    image: "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?q=80&w=800",
-    count: 15
+    subtitle: "Make their special day unforgettable",
+    image: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?q=80&w=800",
+    count: 24
   },
   {
     id: "anniversary",
     name: "Anniversary Gifts",
-    subtitle: "Celebrate your love with timeless memories",
-    image: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?q=80&w=800",
+    subtitle: "Timeless tokens of your lasting love",
+    image: "https://images.unsplash.com/photo-1518199266791-2398a24d8824?q=80&w=800",
+    count: 18
+  },
+  {
+    id: "marriage",
+    name: "Marriage Gifts",
+    subtitle: "Elegant gifts for the perfect couple",
+    image: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=800",
     count: 12
   },
   {
     id: "personalized",
-    name: "Personalized Items",
-    subtitle: "Unique gifts crafted specifically for you",
+    name: "Personalized Studio",
+    subtitle: "Unique items crafted just for you",
     image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?q=80&w=800",
-    count: 45
+    count: 56
   },
   {
     id: "corporate",
-    name: "Corporate Gifting",
-    subtitle: "Professional gifts for your valued partners",
+    name: "Corporate Gifts",
+    subtitle: "Professional gifts for valued partners",
     image: "https://images.unsplash.com/photo-1512418490979-92798ccc1380?q=80&w=800",
-    count: 20
-  },
-  {
-    id: "handmade",
-    name: "Handmade Crafts",
-    subtitle: "Artisan products made with passion",
-    image: "https://images.unsplash.com/photo-1517256011271-bf0097743744?q=80&w=800",
-    count: 18
+    count: 30
   },
   {
     id: "luxury",
-    name: "Luxury Collection",
-    subtitle: "Premium gifts for the most refined tastes",
+    name: "Luxury Selection",
+    subtitle: "Exquisite gifts for refined tastes",
     image: "https://images.unsplash.com/photo-1603006905003-be475563bc59?q=80&w=800",
-    count: 10
+    count: 15
   }
 ];
 
@@ -207,7 +207,7 @@ export default function HomeView() {
            {luxuryProducts.map(p => (
               <div key={p.id} className="relative group cursor-pointer" onClick={() => navigate("/studio")}>
                  <div className="aspect-[4/5] overflow-hidden rounded-[32px] bg-slate-50 mb-6">
-                    <img src={p.image} alt={p.name} className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                    <img src="https://images.unsplash.com/photo-1584305323473-d674ede13028?q=80&w=800" alt={p.name} className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110" />
                  </div>
                  <div className="text-center">
                     <h4 className="text-2xl font-black text-ink">{p.name}</h4>

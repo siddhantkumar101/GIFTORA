@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { Search, Sparkles } from "lucide-react";
 import ProductCard from "../components/ProductCard.jsx";
 import CustomizerPanel from "../components/CustomizerPanel.jsx";
@@ -22,6 +22,10 @@ export default function StudioView({
   session 
 }) {
   const customizerRef = useRef(null);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   function handleProductSelect(slug) {
     setSelectedSlug(slug);
