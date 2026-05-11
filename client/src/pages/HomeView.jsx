@@ -55,117 +55,109 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
     "https://images.unsplash.com/photo-1594322436404-5a0526db4d13?auto=format&fit=crop&q=70&w=400";
 
   return (
-    <div className="animate-fade-in pb-24 max-w-full overflow-x-hidden">
+    <div className="animate-fade-in pb-24 overflow-x-hidden">
       
       {/* 📱 MOBILE-ONLY NATIVE EXPERIENCE */}
-      <div className="block sm:hidden w-full overflow-x-hidden">
-        {/* Search Header Bar */}
-        <div className="pt-2 mb-6 w-full">
-          <div className="relative group w-full">
+      <div className="block sm:hidden space-y-8">
+        
+        {/* Search Header */}
+        <div className="pt-2">
+          <div className="relative">
             <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
               <Search size={18} className="text-slate-400" />
             </div>
             <input 
               type="text" 
               placeholder="Search for 'Birthday Gifts'..."
-              className="w-full bg-slate-100/80 border-none h-12 pl-12 pr-4 rounded-2xl text-sm font-medium focus:ring-2 focus:ring-coral/20 transition-all"
+              className="w-full bg-slate-100/80 border-none h-12 pl-12 pr-4 rounded-2xl text-sm font-medium"
             />
           </div>
         </div>
 
-        {/* Stories-style Categories Horizontal Scroll */}
-        <div className="mb-8 -mx-4 overflow-hidden">
-          <div className="flex overflow-x-auto scrollbar-none gap-5 px-4 pb-1">
+        {/* Categories Scroll */}
+        <div className="-mx-4">
+          <div className="flex overflow-x-auto scrollbar-none gap-5 px-4 pb-2">
             {categories.map((cat) => (
               <button 
                 key={cat.id} 
                 onClick={() => navigate(`/studio?category=${cat.id}`)}
-                className="flex flex-col items-center gap-2 shrink-0 group"
+                className="flex flex-col items-center gap-2 shrink-0"
               >
-                <div className="w-16 h-16 rounded-full p-0.5 border-2 border-coral shadow-sm group-active:scale-90 transition-transform">
-                  <img 
-                    src={cat.image} 
-                    className="w-full h-full rounded-full object-cover" 
-                    alt={cat.name} 
-                  />
+                <div className="w-16 h-16 rounded-full p-0.5 border-2 border-coral shadow-sm">
+                  <img src={cat.image} className="w-full h-full rounded-full object-cover" alt={cat.name} />
                 </div>
                 <span className="text-[10px] font-black text-ink uppercase tracking-tight">{cat.name}</span>
               </button>
             ))}
-            <button onClick={() => navigate("/studio")} className="flex flex-col items-center gap-2 shrink-0 group">
-              <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center border-2 border-dashed border-slate-300 group-active:scale-90 transition-transform">
+            <button onClick={() => navigate("/studio")} className="flex flex-col items-center gap-2 shrink-0">
+              <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center border-2 border-dashed border-slate-300">
                 <Sparkles size={20} className="text-slate-400" />
               </div>
-              <span className="text-[10px] font-black text-slate-400 uppercase tracking-tight">View All</span>
+              <span className="text-[10px] font-black text-slate-400 uppercase tracking-tight">All</span>
             </button>
           </div>
         </div>
 
-        {/* High-Impact App Hero Card - Hardened to prevent flow issues */}
-        <div className="mb-8 w-full max-w-full overflow-hidden">
-          <div 
-            onClick={() => navigate("/studio")}
-            className="relative h-[420px] rounded-[32px] overflow-hidden bg-slate-900 shadow-lg active:scale-[0.98] transition-transform group w-full border border-slate-100/10"
-          >
-            <img 
-              src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=75&w=800" 
-              className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000"
-              alt="Hero"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/30 to-transparent" />
-            <div className="absolute bottom-0 inset-x-0 p-6 sm:p-8">
-              <span className="inline-flex items-center gap-1.5 bg-white/20 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full mb-4 border border-white/30">
-                <Sparkles size={12} /> Featured Gift
-              </span>
-              <h2 className="text-3xl font-serif font-bold text-white mb-2 leading-tight">Create your<br />perfect gift.</h2>
-              <p className="text-white/80 text-xs font-medium mb-6 leading-relaxed max-w-[220px]">Step into the Giftora Studio and design a memory in real-time.</p>
-              <button className="w-full bg-coral text-white h-11 rounded-2xl font-black text-sm shadow-xl shadow-coral/30">
-                Start Creating Now
-              </button>
-            </div>
+        {/* Hero Card - Removed all complex transformations/widths */}
+        <div 
+          onClick={() => navigate("/studio")}
+          className="relative h-[420px] rounded-[32px] overflow-hidden bg-slate-900 border border-slate-100/10 shadow-lg"
+        >
+          <img 
+            src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=75&w=800" 
+            className="absolute inset-0 w-full h-full object-cover opacity-60"
+            alt="Hero"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/30 to-transparent" />
+          <div className="absolute bottom-0 inset-x-0 p-8">
+            <span className="inline-flex items-center gap-1.5 bg-white/20 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full mb-4 border border-white/30">
+              <Sparkles size={12} /> Featured Gift
+            </span>
+            <h2 className="text-3xl font-serif font-bold text-white mb-2 leading-tight">Create your<br />perfect gift.</h2>
+            <p className="text-white/80 text-xs font-medium mb-6 leading-relaxed max-w-[220px]">Step into the Giftora Studio and design a memory in real-time.</p>
+            <button className="w-full bg-coral text-white h-12 rounded-2xl font-black text-sm shadow-xl shadow-coral/30">
+              Start Creating Now
+            </button>
           </div>
         </div>
 
-        {/* Compact Trust Marquee - Extra wrapper for safety */}
-        <div className="mb-8 -mx-4 overflow-hidden w-screen relative left-1/2 -translate-x-1/2">
-          <div className="bg-mint/10 py-3 w-full overflow-hidden">
-            <div className="flex animate-marquee whitespace-nowrap gap-10">
-              {[
-                { icon: Gift, label: "Premium Packaging" },
-                { icon: Truck, label: "Express Delivery" },
-                { icon: ShieldCheck, label: "Quality Guarantee" },
-                { icon: ShoppingBag, label: "Bulk Gifting" },
-              ].map((f, i) => (
-                <div key={i} className="flex items-center gap-2">
-                  <f.icon size={14} className="text-mint" />
-                  <span className="text-[10px] font-black uppercase tracking-widest text-ink">{f.label}</span>
-                </div>
-              ))}
-              {/* Duplicate for seamless marquee */}
-              {[
-                { icon: Gift, label: "Premium Packaging" },
-                { icon: Truck, label: "Express Delivery" },
-                { icon: ShieldCheck, label: "Quality Guarantee" },
-                { icon: ShoppingBag, label: "Bulk Gifting" },
-              ].map((f, i) => (
-                <div key={i+"-dup"} className="flex items-center gap-2">
-                  <f.icon size={14} className="text-mint" />
-                  <span className="text-[10px] font-black uppercase tracking-widest text-ink">{f.label}</span>
-                </div>
-              ))}
-            </div>
+        {/* Trust Strip - Simplified to prevent overflow */}
+        <div className="-mx-4 bg-mint/10 py-3 overflow-hidden">
+          <div className="flex animate-marquee whitespace-nowrap gap-10">
+            {[
+              { icon: Gift, label: "Premium Packaging" },
+              { icon: Truck, label: "Express Delivery" },
+              { icon: ShieldCheck, label: "Quality Guarantee" },
+              { icon: ShoppingBag, label: "Bulk Gifting" },
+            ].map((f, i) => (
+              <div key={i} className="flex items-center gap-2">
+                <f.icon size={14} className="text-mint" />
+                <span className="text-[10px] font-black uppercase tracking-widest text-ink">{f.label}</span>
+              </div>
+            ))}
+            {[
+              { icon: Gift, label: "Premium Packaging" },
+              { icon: Truck, label: "Express Delivery" },
+              { icon: ShieldCheck, label: "Quality Guarantee" },
+              { icon: ShoppingBag, label: "Bulk Gifting" },
+            ].map((f, i) => (
+              <div key={i+"-dup"} className="flex items-center gap-2">
+                <f.icon size={14} className="text-mint" />
+                <span className="text-[10px] font-black uppercase tracking-widest text-ink">{f.label}</span>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Product Horizontal Scroll Section */}
-        <div className="mb-10 w-full overflow-hidden">
+        {/* Products Scroll */}
+        <div>
           <div className="flex items-center justify-between mb-5">
             <h3 className="text-xl font-black text-ink">New Arrivals</h3>
             <button onClick={() => navigate("/studio")} className="flex items-center gap-1 text-[11px] font-black text-coral uppercase tracking-widest">
               See All <ChevronRight size={14} />
             </button>
           </div>
-          <div className="flex overflow-x-auto gap-4 pb-4 scrollbar-none snap-x snap-mandatory -mx-4 px-4 w-screen relative left-1/2 -translate-x-1/2">
+          <div className="flex overflow-x-auto gap-4 pb-4 scrollbar-none snap-x snap-mandatory -mx-4 px-4">
             {featuredProducts.map((p) => (
               <div key={p.id} className="min-w-[170px] w-[170px] snap-start">
                 <ProductCard product={p} selected={false} onSelect={() => navigate("/studio")} />
@@ -173,7 +165,7 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
             ))}
             <div 
               onClick={() => navigate("/studio")}
-              className="min-w-[140px] w-[140px] snap-start rounded-2xl bg-slate-50 border border-dashed border-slate-200 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform mr-4"
+              className="min-w-[140px] w-[140px] snap-start rounded-2xl bg-slate-50 border border-dashed border-slate-200 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform"
             >
               <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-coral">
                 <Sparkles size={20} />
