@@ -59,32 +59,34 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
             alt="Giftora Hero" 
           />
         </div>
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-4 text-white">
-          <h1 className="text-xl sm:text-7xl font-serif font-bold mb-2 sm:mb-6 drop-shadow-2xl max-w-[260px] sm:max-w-4xl leading-[1.1] sm:leading-tight">
-            Perfect Gifts for <br /> Every Occasion
-          </h1>
-          <p className="text-xs sm:text-2xl font-medium mb-5 sm:mb-10 opacity-90 drop-shadow-lg max-w-[240px] sm:max-w-2xl">
-            Discover unique presents that tell your story
-          </p>
-          <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
-            <button 
-              onClick={() => {
-                navigate("/studio");
-                window.scrollTo(0, 0);
-              }}
-              className="bg-[#facc15] hover:bg-[#eab308] text-black h-11 sm:h-14 px-6 sm:px-12 rounded-lg sm:rounded-xl text-sm sm:text-lg font-black transition-all shadow-xl shadow-black/20"
-            >
-              Shop Now
-            </button>
-            <button 
-              onClick={() => {
-                const el = document.getElementById('shop-categories');
-                el?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="bg-white/10 backdrop-blur hover:bg-white/20 text-white border border-white/30 h-11 sm:h-14 px-5 sm:px-10 rounded-lg sm:rounded-xl text-sm sm:text-lg font-bold transition-all"
-            >
-              Explore All
-            </button>
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-4">
+          <div className="bg-slate-900/40 backdrop-blur-md p-6 sm:p-12 rounded-[32px] sm:rounded-[60px] border border-white/10 max-w-[320px] sm:max-w-4xl mx-auto">
+            <h1 className="text-2xl sm:text-7xl font-serif font-bold mb-3 sm:mb-6 text-white leading-tight">
+              Perfect Gifts for <br /> Every Occasion
+            </h1>
+            <p className="text-xs sm:text-2xl font-medium mb-6 sm:mb-10 text-white/90 drop-shadow-lg max-w-[240px] sm:max-w-2xl mx-auto">
+              Discover unique presents that tell your story
+            </p>
+            <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
+              <button 
+                onClick={() => {
+                  navigate("/studio");
+                  window.scrollTo(0, 0);
+                }}
+                className="bg-coral text-white h-11 sm:h-14 px-8 sm:px-10 rounded-xl sm:rounded-2xl text-xs sm:text-base font-black hover:bg-[#e24e3c] transition-all shadow-xl shadow-coral/20"
+              >
+                Shop Now
+              </button>
+              <button 
+                onClick={() => {
+                  const el = document.getElementById('shop-categories');
+                  el?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="bg-white/10 backdrop-blur-md text-white border border-white/20 h-11 sm:h-14 px-8 sm:px-10 rounded-xl sm:rounded-2xl text-xs sm:text-base font-black hover:bg-white/20 transition-all"
+              >
+                Explore
+              </button>
+            </div>
           </div>
         </div>
       </section>

@@ -33,9 +33,19 @@ body {
 
 h1, h2, h3, h4, .font-heading {
   font-family: 'Outfit', sans-serif;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   word-break: break-word;
   overflow-wrap: break-word;
+  line-height: 1.1;
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 14px;
+  }
+  .glass-card {
+    border-radius: 20px !important;
+  }
 }
 
 .font-serif {
@@ -217,6 +227,8 @@ html, body {
   width: 100%;
   margin: 0;
   padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {

@@ -494,24 +494,33 @@ export default function App() {
           const Icon = tab.icon;
           const selected = location.pathname === tab.path;
           return (
-            <button
-              key={tab.id}
-              onClick={() => handleTabClick(tab)}
-              className={`flex flex-col items-center gap-1 transition-all duration-300 ${selected ? "text-primary scale-110" : "text-slate-400"}`}
-            >
-              <div className={`p-2 rounded-xl transition-colors ${selected ? "bg-primary/10" : ""}`}>
-                <Icon size={20} />
-              </div>
-              <span className="text-[10px] font-black uppercase tracking-tighter">{tab.label}</span>
-              {tab.id === "cart" && cart.length > 0 && (
-                <span className="absolute top-2 right-2 flex h-4 w-4 items-center justify-center rounded-full bg-coral text-[8px] font-bold text-white ring-2 ring-white">
-                  {cart.length}
-                </span>
-              )}
-            </button>
-          );
-        })}
-      </nav>
+      <div className="fixed bottom-4 left-4 right-4 lg:hidden z-[100] bg-white/80 backdrop-blur-2xl border border-slate-200/50 rounded-[28px] py-3 shadow-2xl shadow-ink/10">
+        <div className="flex justify-around items-center px-2">
+          {tabs.map((tab) => {
+            const Icon = tab.icon;
+            const selected = location.pathname === tab.path;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => handleTabClick(tab)}
+                className={`relative flex flex-col items-center gap-1 transition-all duration-300 ${
+                  selected ? "text-coral scale-110" : "text-slate-400"
+                }`}
+              >
+                <div className={`p-1.5 rounded-xl transition-colors ${selected ? "bg-coral/10" : "bg-transparent"}`}>
+                  <Icon size={20} strokeWidth={selected ? 2.5 : 2} />
+                </div>
+                <span className="text-[9px] font-black uppercase tracking-widest">{tab.label}</span>
+                {tab.id === "cart" && cart.length > 0 && (
+                  <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-coral text-[8px] font-bold text-white ring-2 ring-white">
+                    {cart.length}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }
