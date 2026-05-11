@@ -489,11 +489,6 @@ export default function App() {
       <Footer />
 
       {/* Mobile Bottom Navigation */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-lg border-t border-slate-100 px-6 py-3 flex items-center justify-between shadow-[0_-8px_30px_rgba(0,0,0,0.05)]">
-        {tabs.map((tab) => {
-          const Icon = tab.icon;
-          const selected = location.pathname === tab.path;
-          return (
       <div className="fixed bottom-4 left-4 right-4 lg:hidden z-[100] bg-white/80 backdrop-blur-2xl border border-slate-200/50 rounded-[28px] py-3 shadow-2xl shadow-ink/10">
         <div className="flex justify-around items-center px-2">
           {tabs.map((tab) => {
