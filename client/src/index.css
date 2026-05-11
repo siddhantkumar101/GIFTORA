@@ -204,6 +204,12 @@ h1, h2, h3, h4, .font-heading {
 }
 
 /* Animations */
+
+/* Full-screen and overflow fixes */
+html, body, #root { height: 100%; overflow-x: hidden; }
+.full-height { min-height: calc(100vh - 4rem); }
+.col-scroll { overflow-y: auto; }
+.preview-stage { max-height: calc(100vh - 250px); overflow-y: auto; }
 .animate-fade-in {
   animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

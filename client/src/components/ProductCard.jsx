@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CheckCircle2 } from "lucide-react";
 import { money } from "../utils/helpers.js";
+const placeholderImage = "https://via.placeholder.com/400?text=Image+Not+Found";
 
 export default function ProductCard({ product, selected, onSelect }) {
   const [loaded, setLoaded] = useState(false);
@@ -21,6 +22,7 @@ export default function ProductCard({ product, selected, onSelect }) {
           alt={product.name}
           loading="lazy"
           onLoad={() => setLoaded(true)}
+          onError={(e) => { e.target.src = placeholderImage; }}
           className={`relative z-10 h-full w-full object-cover transition-all duration-700 ${loaded ? "opacity-100" : "opacity-0"} ${selected ? "scale-105" : "hover:scale-105"}`}
         />
         {selected && (

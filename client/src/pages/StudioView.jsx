@@ -31,7 +31,7 @@ export default function StudioView({
   }
 
   return (
-    <div className="space-y-12 animate-fade-in">
+    <div className="min-h-screen flex flex-col space-y-12 animate-fade-in">
       <section className="text-center py-10 px-4">
          <h2 className="text-4xl font-black tracking-tighter sm:text-7xl text-ink leading-[1.05]">Design your perfect gift.</h2>
          <p className="mt-6 mx-auto max-w-xl text-base text-slate-500 font-medium leading-relaxed sm:text-xl">
@@ -39,9 +39,9 @@ export default function StudioView({
          </p>
       </section>
 
-      <section className="grid gap-12 lg:grid-cols-[1fr_480px]">
+      <section className="grid gap-12 md:grid-cols-[1fr_480px] lg:grid-cols-[1fr_480px]">
         {/* Left Column: Product Catalog */}
-        <div className="space-y-8">
+        <div className="space-y-8 overflow-y-auto col-scroll">
             <div className="flex flex-col gap-6 border-b border-slate-100 pb-6 sm:flex-row sm:items-center sm:justify-between">
                <h3 className="text-xl font-black sm:text-2xl">1. Browse Products</h3>
                <div className="flex flex-wrap items-center gap-2">
