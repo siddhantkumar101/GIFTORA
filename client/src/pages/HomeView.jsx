@@ -55,13 +55,13 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
     "https://images.unsplash.com/photo-1594322436404-5a0526db4d13?auto=format&fit=crop&q=70&w=400";
 
   return (
-    <div className="animate-fade-in pb-24 overflow-x-hidden w-full max-w-full">
+    <div className="animate-fade-in pb-24 overflow-hidden">
       
       {/* 📱 MOBILE-ONLY NATIVE EXPERIENCE */}
-      <div className="block sm:hidden space-y-10 w-full overflow-hidden">
+      <div className="block sm:hidden space-y-10">
         
         {/* Search Header */}
-        <div className="pt-2 px-1">
+        <div className="pt-2">
           <div className="relative">
             <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
               <Search size={18} className="text-slate-400" />
@@ -69,14 +69,14 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
             <input 
               type="text" 
               placeholder="Search for 'Birthday Gifts'..."
-              className="w-full bg-slate-100 border-none h-12 pl-12 pr-4 rounded-2xl text-sm font-medium"
+              className="w-full bg-slate-100 border-none h-12 pl-12 pr-4 rounded-2xl text-sm font-medium focus:ring-0"
             />
           </div>
         </div>
 
-        {/* Categories Scroll - Removed -mx-4 to be ultra-safe */}
+        {/* Categories Scroll */}
         <div className="overflow-hidden">
-          <div className="flex overflow-x-auto scrollbar-none gap-5 pb-2">
+          <div className="flex overflow-x-auto scrollbar-none gap-5 pb-2 -mx-4 px-4">
             {categories.map((cat) => (
               <button 
                 key={cat.id} 
@@ -98,11 +98,11 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
           </div>
         </div>
 
-        {/* Hero Card - Added w-full and box-border */}
-        <div className="w-full box-border px-0.5">
+        {/* Hero Card - Total reset of centering */}
+        <div className="flex flex-col items-center justify-center w-full">
           <div 
             onClick={() => navigate("/studio")}
-            className="relative h-[420px] rounded-[32px] overflow-hidden bg-slate-900 border border-slate-100/10 shadow-lg w-full"
+            className="relative h-[420px] rounded-[32px] overflow-hidden bg-slate-900 border border-slate-100/10 shadow-lg w-full max-w-full"
           >
             <img 
               src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=75&w=800" 
@@ -123,8 +123,8 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
           </div>
         </div>
 
-        {/* Trust Strip - Removed -mx-4, keeping it contained */}
-        <div className="bg-mint/10 py-3 rounded-2xl overflow-hidden">
+        {/* Trust Strip - Contained marquee */}
+        <div className="bg-mint/10 py-3 rounded-2xl overflow-hidden -mx-2">
           <div className="flex animate-marquee whitespace-nowrap gap-10">
             {[
               { icon: Gift, label: "Premium Packaging" },
@@ -151,15 +151,15 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
           </div>
         </div>
 
-        {/* Products Scroll - Removed -mx-4 px-4 */}
-        <div>
-          <div className="flex items-center justify-between mb-5">
+        {/* Products Scroll */}
+        <div className="overflow-hidden">
+          <div className="flex items-center justify-between mb-5 px-1">
             <h3 className="text-xl font-black text-ink">New Arrivals</h3>
             <button onClick={() => navigate("/studio")} className="flex items-center gap-1 text-[11px] font-black text-coral uppercase tracking-widest">
               See All <ChevronRight size={14} />
             </button>
           </div>
-          <div className="flex overflow-x-auto gap-4 pb-4 scrollbar-none snap-x snap-mandatory">
+          <div className="flex overflow-x-auto gap-4 pb-4 scrollbar-none snap-x snap-mandatory -mx-4 px-4">
             {featuredProducts.map((p) => (
               <div key={p.id} className="min-w-[170px] w-[170px] snap-start">
                 <ProductCard product={p} selected={false} onSelect={() => navigate("/studio")} />
