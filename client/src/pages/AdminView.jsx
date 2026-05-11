@@ -110,11 +110,11 @@ export default function AdminView({ metrics, products, orders, updateProduct, ad
       </section>
 
       {/* Stats */}
-      <section className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        <AdminMetric icon={Boxes} label="Active Orders" value={orders.length} />
-        <AdminMetric icon={BarChart3} label="Total Revenue" value={money(metrics.revenue)} />
-        <AdminMetric icon={ImageIcon} label="Catalog Items" value={products.length} />
-        <AdminMetric icon={Settings} label="System Status" value="Online" />
+      <section className="grid gap-4 sm:gap-8 grid-cols-2 lg:grid-cols-4">
+        <AdminMetric icon={Boxes} label="Orders" value={orders.length} />
+        <AdminMetric icon={BarChart3} label="Revenue" value={money(metrics.revenue)} />
+        <AdminMetric icon={ImageIcon} label="Catalog" value={products.length} />
+        <AdminMetric icon={Settings} label="Status" value="Online" />
       </section>
 
       <section className="grid gap-12 lg:grid-cols-[1fr_420px] items-start">

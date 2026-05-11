@@ -51,12 +51,14 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
   return (
     <div className="animate-fade-in pb-20">
       {/* Hero Section - Restored to Static Elegant Version */}
-      <section className="relative h-[500px] sm:h-[600px] w-full overflow-hidden mb-16 sm:mb-24 bg-slate-900">
-        <img 
-          src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=90&w=1600" 
-          className="absolute inset-0 h-full w-full object-cover opacity-60" 
-          alt="Giftora Hero" 
-        />
+      <section className="relative h-[450px] sm:h-[600px] w-full overflow-hidden mb-16 sm:mb-24 bg-slate-900">
+        <div className="absolute inset-0 w-full h-full">
+          <img 
+            src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=90&w=1600" 
+            className="h-full w-full object-cover opacity-60" 
+            alt="Giftora Hero" 
+          />
+        </div>
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-4 text-white">
           <h1 className="text-4xl sm:text-7xl font-serif font-bold mb-6 drop-shadow-2xl max-w-4xl leading-tight">
             Perfect Gifts for <br /> Every Occasion
@@ -88,7 +90,7 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
       </section>
 
       {/* Categories Section */}
-      <section id="shop-categories" className="mb-32 px-4 max-w-7xl mx-auto">
+      <section id="shop-categories" className="mb-32 px-4 max-w-full lg:max-w-7xl mx-auto overflow-hidden">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-black text-ink mb-3 text-center">Shop by Gift Type</h2>
           <div className="h-1.5 w-24 bg-mint mx-auto rounded-full" />

@@ -211,8 +211,18 @@ h1, h2, h3, h4, .font-heading {
 
 /* Animations */
 
-/* Full-screen and overflow fixes */
-html, body, #root { height: 100%; overflow-x: hidden; }
+/* Nuclear fix for mobile overflow */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+  height: 100%;
+}
+
+#root {
+  width: 100%;
+  overflow-x: hidden;
+}
 .full-height { min-height: calc(100vh - 4rem); }
 .col-scroll { overflow-y: auto; }
 .preview-stage { max-height: calc(100vh - 250px); overflow-y: auto; }

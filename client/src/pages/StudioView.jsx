@@ -88,8 +88,8 @@ export default function StudioView({
            </div>
         </div>
 
-        {/* Right Column: Live Studio (Order 1 on mobile) */}
-        <div className="order-1 lg:order-2 space-y-6 sm:space-y-8" ref={customizerRef}>
+        {/* Right Column: Live Studio (Order 1 on mobile, sticky for visibility) */}
+        <div className="order-1 lg:order-2 space-y-6 sm:space-y-8 sticky top-[80px] lg:static z-20 bg-bg-main/95 backdrop-blur-sm lg:backdrop-blur-none py-4 lg:py-0 border-b border-slate-100 lg:border-none" ref={customizerRef}>
            <h3 className="text-lg font-black sm:text-2xl">2. Customize & Preview</h3>
            <CustomizerPanel
              selectedProduct={selectedProduct}
