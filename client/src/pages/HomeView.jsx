@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ShoppingBag, Gift, Truck, ShieldCheck, Search, Sparkles, Heart, Star } from "lucide-react";
+import { ShoppingBag, Gift, Truck, ShieldCheck, Search, Sparkles, Heart, Star, ChevronRight } from "lucide-react";
 import CategoryCard from "../components/CategoryCard.jsx";
 import Testimonials from "../components/Testimonials.jsx";
 import ProductCard from "../components/ProductCard.jsx";
@@ -40,6 +40,7 @@ const categories = [
 export default function HomeView({ products = [], apiMode = "connecting" }) {
   const navigate = useNavigate();
 
+  // Use up to 8 products for more variety in the mobile carousel
   const displayProducts =
     products.length > 0
       ? products
@@ -49,7 +50,7 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
 
   const featuredProducts = [...displayProducts]
     .sort((a, b) => (b.orders || 0) - (a.orders || 0))
-    .slice(0, 4);
+    .slice(0, 8);
 
   const placeholderImg =
     "https://images.unsplash.com/photo-1594322436404-5a0526db4d13?auto=format&fit=crop&q=70&w=400";
@@ -57,10 +58,10 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
   return (
     <div className="animate-fade-in pb-24 overflow-x-hidden">
       
-      {/* 📱 MOBILE-ONLY NATIVE EXPERIENCE (Hidden on sm+) */}
-      <div className="block sm:hidden -mx-4">
+      {/* 📱 MOBILE-ONLY NATIVE EXPERIENCE */}
+      <div className="block sm:hidden">
         {/* Search Header Bar */}
-        <div className="px-4 pt-2 mb-6">
+        <div className="pt-2 mb-6">
           <div className="relative group">
             <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
               <Search size={18} className="text-slate-400" />
@@ -74,8 +75,8 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
         </div>
 
         {/* Stories-style Categories Horizontal Scroll */}
-        <div className="mb-8">
-          <div className="flex overflow-x-auto scrollbar-none gap-5 px-4">
+        <div className="mb-8 -mx-4">
+          <div className="flex overflow-x-auto scrollbar-none gap-5 px-4 pb-1">
             {categories.map((cat) => (
               <button 
                 key={cat.id} 
@@ -92,11 +93,7 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
                 <span className="text-[10px] font-black text-ink uppercase tracking-tight">{cat.name}</span>
               </button>
             ))}
-            {/* View All Circle */}
-            <button 
-              onClick={() => navigate("/studio")}
-              className="flex flex-col items-center gap-2 shrink-0 group"
-            >
+            <button onClick={() => navigate("/studio")} className="flex flex-col items-center gap-2 shrink-0 group">
               <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center border-2 border-dashed border-slate-300 group-active:scale-90 transition-transform">
                 <Sparkles size={20} className="text-slate-400" />
               </div>
@@ -105,18 +102,18 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
           </div>
         </div>
 
-        {/* High-Impact App Hero Card */}
-        <div className="px-4 mb-8">
+        {/* High-Impact App Hero Card - Fixed width issue */}
+        <div className="mb-8">
           <div 
             onClick={() => navigate("/studio")}
-            className="relative h-[440px] rounded-[32px] overflow-hidden bg-slate-900 shadow-2xl active:scale-[0.98] transition-transform group"
+            className="relative h-[440px] rounded-[32px] overflow-hidden bg-slate-900 shadow-xl active:scale-[0.98] transition-transform group"
           >
             <img 
               src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=75&w=800" 
               className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000"
               alt="Hero"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/30 to-transparent" />
             <div className="absolute bottom-0 inset-x-0 p-8">
               <span className="inline-flex items-center gap-1.5 bg-white/20 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full mb-4 border border-white/30">
                 <Sparkles size={12} /> Featured Gift
@@ -130,8 +127,8 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
           </div>
         </div>
 
-        {/* Compact Trust Marquee */}
-        <div className="bg-mint/10 py-3 mb-8">
+        {/* Compact Trust Marquee - Wrapped with overflow-hidden to prevent layout break */}
+        <div className="bg-mint/10 py-3 mb-8 -mx-4 overflow-hidden">
           <div className="flex animate-marquee whitespace-nowrap gap-8">
             {[
               { icon: Gift, label: "Premium Packaging" },
@@ -144,7 +141,6 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
                 <span className="text-[10px] font-black uppercase tracking-widest text-ink">{f.label}</span>
               </div>
             ))}
-            {/* Repeat for seamless loop */}
             {[
               { icon: Gift, label: "Premium Packaging" },
               { icon: Truck, label: "Express Delivery" },
@@ -159,22 +155,24 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
           </div>
         </div>
 
-        {/* Product Horizontal Scroll Section */}
-        <div className="pl-4">
-          <div className="flex items-center justify-between mb-5 pr-4">
+        {/* Product Horizontal Scroll - Snap behavior and more items */}
+        <div className="mb-10">
+          <div className="flex items-center justify-between mb-5">
             <h3 className="text-xl font-black text-ink">New Arrivals</h3>
-            <button onClick={() => navigate("/studio")} className="text-[11px] font-black text-coral uppercase tracking-widest">See All</button>
+            <button onClick={() => navigate("/studio")} className="flex items-center gap-1 text-[11px] font-black text-coral uppercase tracking-widest">
+              See All <ChevronRight size={14} />
+            </button>
           </div>
-          <div className="flex overflow-x-auto gap-4 pb-4 scrollbar-none pr-4">
+          <div className="flex overflow-x-auto gap-4 pb-4 scrollbar-none snap-x snap-mandatory -mx-4 px-4">
             {featuredProducts.map((p) => (
-              <div key={p.id} className="min-w-[160px] w-[160px]">
+              <div key={p.id} className="min-w-[170px] w-[170px] snap-start">
                 <ProductCard product={p} selected={false} onSelect={() => navigate("/studio")} />
               </div>
             ))}
             {/* View More Card */}
             <div 
               onClick={() => navigate("/studio")}
-              className="min-w-[140px] w-[140px] rounded-2xl bg-slate-50 border border-dashed border-slate-200 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform"
+              className="min-w-[140px] w-[140px] snap-start rounded-2xl bg-slate-50 border border-dashed border-slate-200 flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform"
             >
               <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-coral">
                 <Sparkles size={20} />
@@ -185,7 +183,7 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
         </div>
       </div>
 
-      {/* 🖥️ DESKTOP EXPERIENCE (Hidden on mobile) */}
+      {/* 🖥️ DESKTOP EXPERIENCE */}
       <div className="hidden sm:block">
         {/* Hero Section */}
         <section className="relative h-[480px] lg:h-[580px] overflow-hidden mb-16 bg-slate-900 -mx-6 lg:-mx-8">
@@ -284,7 +282,7 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
             <button onClick={() => navigate("/studio")} className="text-xs font-black text-orange-500 uppercase tracking-widest hover:text-ink transition-colors py-2 pl-3">View All →</button>
           </div>
           <div className="grid grid-cols-4 gap-6">
-            {featuredProducts.map((p) => (
+            {featuredProducts.slice(0, 4).map((p) => (
               <ProductCard key={p.id} product={p} selected={false} onSelect={() => navigate("/studio")} />
             ))}
           </div>
