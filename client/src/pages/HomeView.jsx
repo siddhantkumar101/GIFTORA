@@ -22,135 +22,104 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
   return (
     <div className="pb-24 w-full overflow-x-hidden bg-[#fafbfc]">
       
-      {/* 📱 MOBILE-ONLY PREMIUM UI */}
+      {/* 📱 MOBILE-ONLY REFINED UI */}
       <div className="block sm:hidden space-y-12 w-full overflow-x-hidden">
         
-        {/* Apple-Style Glass Search */}
+        {/* Glass Search */}
         <div className="sticky top-0 z-40 px-4 py-4 backdrop-blur-xl bg-white/70 border-b border-slate-100/50">
-          <div className="relative group">
-            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-coral transition-colors" />
+          <div className="relative">
+            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
             <input 
               type="text" 
               placeholder="Search for memories..."
-              className="w-full bg-slate-100/50 border-none h-12 pl-12 pr-4 rounded-2xl text-sm font-semibold placeholder:text-slate-400 focus:ring-2 focus:ring-coral/10 transition-all"
+              className="w-full bg-slate-100/50 border-none h-12 pl-12 pr-4 rounded-2xl text-sm font-semibold focus:ring-0"
             />
           </div>
         </div>
 
-        {/* Story Categories with Ring Animation */}
+        {/* Categories */}
         <div className="w-full overflow-hidden">
-          <div className="flex overflow-x-auto scrollbar-none gap-6 px-4 pb-2">
+          <div className="flex overflow-x-auto scrollbar-none gap-6 px-4 pb-1">
             {categories.map((cat) => (
               <button key={cat.id} onClick={() => navigate(`/studio?category=${cat.id}`)} className="flex flex-col items-center gap-2.5 shrink-0">
-                <div className="relative">
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-coral via-mint to-lemon animate-pulse opacity-20 scale-110" />
-                  <div className="relative w-[72px] h-[72px] rounded-full p-1 bg-white shadow-md border border-slate-50">
-                    <img src={cat.image} className="w-full h-full rounded-full object-cover" alt={cat.name} />
-                  </div>
+                <div className="w-[70px] h-[70px] rounded-full p-0.5 border-2 border-coral shadow-sm">
+                  <img src={cat.image} className="w-full h-full rounded-full object-cover" alt={cat.name} />
                 </div>
-                <span className="text-[11px] font-bold text-ink uppercase tracking-[0.05em]">{cat.name}</span>
+                <span className="text-[10px] font-black text-ink uppercase tracking-tight">{cat.name}</span>
               </button>
             ))}
           </div>
         </div>
 
-        {/* LUXURY BANNER OVERHAUL */}
-        <div className="w-full space-y-2">
+        {/* COMPACT REFINED BANNERS */}
+        <div className="w-full space-y-1">
+          {/* Luxury Banner - Reduced Height, Centered UI */}
           <div 
             onClick={() => navigate("/studio")}
-            className="relative aspect-[16/11] w-full overflow-hidden group"
+            className="relative aspect-[16/8] w-full overflow-hidden"
           >
             <img 
               src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&q=80&w=800" 
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-active:scale-105"
+              className="absolute inset-0 w-full h-full object-cover"
               alt="Luxury"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-            <div className="absolute inset-0 p-8 flex flex-col justify-end">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="h-px w-8 bg-coral" />
-                <span className="text-[10px] font-black text-white uppercase tracking-[0.3em]">Signature Series</span>
-              </div>
-              <h2 className="text-4xl font-serif font-bold text-white mb-4 leading-none">The Luxury<br />Edit.</h2>
-              <p className="text-white/70 text-xs font-medium mb-6 max-w-[200px] leading-relaxed">Hand-curated hampers for life's biggest celebrations.</p>
-              <button className="w-fit bg-coral text-white px-8 py-3 rounded-2xl text-[12px] font-black uppercase tracking-widest shadow-xl shadow-coral/30 active:scale-95 transition-all">
-                Shop The Series
-              </button>
+            <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
+              <span className="text-[9px] font-black text-coral uppercase tracking-[0.4em] mb-2">Signature Series</span>
+              <h2 className="text-3xl font-serif font-bold text-white mb-4 leading-tight">The Luxury Edit</h2>
+              <div className="h-0.5 w-12 bg-white/30 rounded-full" />
             </div>
           </div>
           
+          {/* Sustainable Banner - Sleek & Flat */}
           <div 
             onClick={() => navigate("/studio")}
-            className="relative aspect-[16/6] w-full overflow-hidden bg-ink flex items-center px-8 border-y border-white/5"
+            className="relative aspect-[16/5] w-full overflow-hidden bg-[#1a1a1a] flex items-center justify-between px-8"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-transparent z-10" />
-            <img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=400" className="absolute right-0 w-1/2 h-full object-cover grayscale opacity-20" alt="bg" />
-            
-            <div className="relative z-20 flex flex-col gap-1">
+            <div className="flex flex-col gap-1">
                <div className="flex items-center gap-2">
-                 <div className="h-5 w-5 rounded-full bg-mint flex items-center justify-center">
-                    <Zap size={12} className="text-white fill-white" />
-                 </div>
-                 <span className="text-[10px] font-black text-mint uppercase tracking-[0.2em]">New Arrival</span>
+                 <Zap size={14} className="text-mint fill-mint" />
+                 <span className="text-[9px] font-black text-white/50 uppercase tracking-[0.2em]">Eco Friendly</span>
                </div>
-               <h2 className="text-xl font-serif italic text-white">Sustainable Curations</h2>
+               <h2 className="text-lg font-black text-white uppercase tracking-tighter">Sustainable Curations</h2>
             </div>
-            <div className="ml-auto relative z-20">
-               <div className="h-12 w-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/50">
-                  <ChevronRight size={24} />
-               </div>
+            <div className="h-10 w-10 rounded-full border border-white/20 flex items-center justify-center text-white">
+               <ChevronRight size={20} />
             </div>
           </div>
         </div>
 
         {/* Premium Marquee */}
-        <div className="w-full overflow-hidden bg-white py-5 border-y border-slate-100">
+        <div className="w-full overflow-hidden bg-white py-4 border-y border-slate-100">
           <div className="flex animate-marquee whitespace-nowrap gap-16 items-center">
             {[1, 2, 3, 4].map((i) => (
               <div key={i} className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                   <div className="h-2 w-2 rounded-full bg-mint" />
-                   <span className="text-[10px] font-black uppercase tracking-[0.25em] text-ink">Free Express Delivery</span>
-                </div>
-                <div className="flex items-center gap-2">
-                   <div className="h-2 w-2 rounded-full bg-coral" />
-                   <span className="text-[10px] font-black uppercase tracking-[0.25em] text-ink">Eco-Friendly Packaging</span>
-                </div>
-                <div className="flex items-center gap-2">
-                   <div className="h-2 w-2 rounded-full bg-lemon" />
-                   <span className="text-[10px] font-black uppercase tracking-[0.25em] text-ink">Quality Guaranteed</span>
-                </div>
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-ink flex items-center gap-2">
+                  <div className="h-1.5 w-1.5 rounded-full bg-coral" /> Express Shipping
+                </span>
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-ink flex items-center gap-2">
+                  <div className="h-1.5 w-1.5 rounded-full bg-mint" /> Quality Assured
+                </span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Bestsellers with Trending Badge */}
+        {/* Bestsellers */}
         <div>
           <div className="flex items-center justify-between mb-6 px-4">
             <div className="flex items-center gap-3">
               <div className="h-10 w-10 rounded-2xl bg-coral/10 flex items-center justify-center text-coral">
                 <Flame size={20} className="fill-coral" />
               </div>
-              <div className="flex flex-col">
-                <h3 className="text-xl font-black text-ink leading-none">Bestsellers</h3>
-                <span className="text-[9px] font-bold text-mint uppercase tracking-widest mt-1.5 flex items-center gap-1">
-                   <div className="h-1 w-1 rounded-full bg-mint animate-ping" /> Live Trending
-                </span>
-              </div>
+              <h3 className="text-xl font-black text-ink">Bestsellers</h3>
             </div>
-            <button onClick={() => navigate("/studio")} className="text-[11px] font-black text-slate-400 uppercase tracking-widest border-b-2 border-transparent hover:border-coral transition-all">View All</button>
+            <button onClick={() => navigate("/studio")} className="text-[11px] font-black text-slate-400 uppercase tracking-widest">See All</button>
           </div>
           <div className="flex overflow-x-auto gap-5 pb-8 scrollbar-none snap-x snap-mandatory px-4">
             {featuredProducts.map((p) => (
               <div key={p.id} className="min-w-[210px] w-[210px] snap-start">
-                <div className="relative">
-                  <div className="absolute top-3 left-3 z-20 bg-white/90 backdrop-blur-md px-2 py-1 rounded-lg border border-slate-100 shadow-sm flex items-center gap-1">
-                    <Star size={10} className="fill-lemon text-lemon" />
-                    <span className="text-[9px] font-black text-ink">4.9</span>
-                  </div>
-                  <ProductCard product={p} selected={false} onSelect={() => navigate("/studio")} />
-                </div>
+                <ProductCard product={p} selected={false} onSelect={() => navigate("/studio")} />
               </div>
             ))}
             <div 
@@ -165,10 +134,7 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
           </div>
         </div>
 
-        {/* Community Love Header */}
-        <div className="pt-4">
-           <Testimonials />
-        </div>
+        <Testimonials />
       </div>
 
       {/* 🖥️ DESKTOP VIEW */}
