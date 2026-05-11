@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ShoppingBag, Gift, Truck, ShieldCheck, Search, Sparkles, Heart, Star, ChevronRight, User, Baby, Users, Briefcase } from "lucide-react";
+import { ShoppingBag, Gift, Truck, ShieldCheck, Search, Sparkles, Heart, Star, ChevronRight, Zap } from "lucide-react";
 import CategoryCard from "../components/CategoryCard.jsx";
 import Testimonials from "../components/Testimonials.jsx";
 import ProductCard from "../components/ProductCard.jsx";
@@ -13,42 +13,34 @@ const categories = [
   { id: "marriage", name: "Marriage", image: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=400" },
 ];
 
-const occasions = [
-  { id: "her", name: "For Her", icon: Heart, color: "bg-pink-50 text-pink-500" },
-  { id: "him", name: "For Him", icon: User, color: "bg-blue-50 text-blue-500" },
-  { id: "kids", name: "For Kids", icon: Baby, color: "bg-orange-50 text-orange-500" },
-  { id: "couple", name: "For Couples", icon: Users, color: "bg-purple-50 text-purple-500" },
-  { id: "corporate", name: "Corporate", icon: Briefcase, color: "bg-slate-50 text-slate-500" },
-  { id: "new", name: "New", icon: Sparkles, color: "bg-mint/10 text-mint" },
-];
-
 export default function HomeView({ products = [], apiMode = "connecting" }) {
   const navigate = useNavigate();
 
   const displayProducts = products.length > 0 ? products : apiMode === "demo" ? fallbackProducts : [];
-  const featuredProducts = [...displayProducts].sort((a, b) => (b.orders || 0) - (a.orders || 0)).slice(0, 8);
+  // Show more products for the bestseller swipe
+  const featuredProducts = [...displayProducts].sort((a, b) => (b.orders || 0) - (a.orders || 0)).slice(0, 12);
 
   return (
     <div className="pb-24 w-full overflow-x-hidden">
       
       {/* 📱 MOBILE-ONLY VIEW */}
-      <div className="block sm:hidden space-y-10 w-full overflow-x-hidden">
+      <div className="block sm:hidden space-y-12 w-full overflow-x-hidden">
         
-        {/* Search */}
-        <div className="pt-2 px-4 w-full box-border">
-          <div className="relative w-full">
-            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+        {/* Modern Search */}
+        <div className="pt-2 px-4">
+          <div className="relative group">
+            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-coral transition-colors" />
             <input 
               type="text" 
-              placeholder="Who are you shopping for?"
-              className="w-full bg-slate-100 border-none h-12 pl-12 pr-4 rounded-2xl text-sm font-medium"
+              placeholder="Search unique gifts..."
+              className="w-full bg-slate-100 border-none h-12 pl-12 pr-4 rounded-2xl text-sm font-medium focus:ring-2 focus:ring-coral/20"
             />
           </div>
         </div>
 
-        {/* Categories */}
+        {/* Stories */}
         <div className="w-full overflow-hidden">
-          <div className="flex overflow-x-auto scrollbar-none gap-5 px-4 pb-2">
+          <div className="flex overflow-x-auto scrollbar-none gap-5 px-4 pb-1">
             {categories.map((cat) => (
               <button key={cat.id} onClick={() => navigate(`/studio?category=${cat.id}`)} className="flex flex-col items-center gap-2 shrink-0">
                 <div className="w-16 h-16 rounded-full p-0.5 border-2 border-coral shadow-sm">
@@ -60,47 +52,74 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
           </div>
         </div>
 
-        {/* Shop by Recipient - Hardened Centering */}
-        <div className="px-4 w-full box-border">
-          <div className="bg-white rounded-[32px] p-6 shadow-soft border border-slate-50 w-full box-border">
-            <h2 className="text-xl font-black text-ink mb-5">Shop by Recipient</h2>
-            <div className="grid grid-cols-3 gap-4 w-full">
-              {occasions.map((occ) => (
-                <button key={occ.id} onClick={() => navigate("/studio")} className="flex flex-col items-center gap-2">
-                  <div className={`w-14 h-14 rounded-2xl ${occ.color} flex items-center justify-center`}>
-                    <occ.icon size={22} />
-                  </div>
-                  <span className="text-[9px] font-black text-slate-400 uppercase tracking-tight text-center">{occ.name}</span>
-                </button>
-              ))}
+        {/* NEW GRAPHIC SECTION: "The Collection" Banners */}
+        <div className="px-4 space-y-4">
+          <div className="relative h-[240px] rounded-[32px] overflow-hidden group shadow-xl">
+            <img 
+              src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&q=75&w=800" 
+              className="absolute inset-0 w-full h-full object-cover"
+              alt="Luxury"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/40 to-transparent" />
+            <div className="absolute inset-0 p-8 flex flex-col justify-center">
+              <span className="text-[10px] font-black text-coral uppercase tracking-widest mb-2">✦ Handpicked</span>
+              <h2 className="text-2xl font-serif font-bold text-white mb-4">Luxury<br />Hampers</h2>
+              <button onClick={() => navigate("/studio")} className="w-fit bg-white text-ink px-5 py-2 rounded-xl text-[11px] font-black uppercase tracking-wider active:scale-95 transition-transform">
+                Explore Now
+              </button>
+            </div>
+          </div>
+          <div className="relative h-[200px] rounded-[32px] overflow-hidden shadow-lg">
+            <img 
+              src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&q=75&w=800" 
+              className="absolute inset-0 w-full h-full object-cover"
+              alt="Eco"
+            />
+            <div className="absolute inset-0 bg-ink/40 backdrop-blur-[2px]" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
+              <Zap size={24} className="text-lemon mb-3" />
+              <h2 className="text-xl font-black text-white uppercase tracking-tight mb-2">Sustainable Gifting</h2>
+              <p className="text-white/80 text-[10px] font-bold uppercase tracking-widest">Earth friendly • Thoughtfully made</p>
             </div>
           </div>
         </div>
 
-        {/* Marquee - Extra Safe Wrapper */}
-        <div className="w-full overflow-hidden bg-ink py-4">
-          <div className="flex animate-marquee whitespace-nowrap gap-12 items-center w-max">
+        {/* Moving Strip */}
+        <div className="w-full overflow-hidden bg-slate-900 py-3.5">
+          <div className="flex animate-marquee whitespace-nowrap gap-12 items-center">
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div key={i} className="flex items-center gap-3">
                 <Sparkles size={14} className="text-coral" />
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white">Premium Quality • Express Delivery • Handcrafted With Love</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white">Premium Quality • Express Delivery • 24/7 Support</span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Bestsellers */}
-        <div className="w-full overflow-hidden">
+        {/* Bestsellers - More products, smooth swipe */}
+        <div>
           <div className="flex items-center justify-between mb-5 px-4">
-            <h3 className="text-xl font-black text-ink">Bestsellers</h3>
-            <button onClick={() => navigate("/studio")} className="text-[11px] font-black text-coral uppercase tracking-widest">See All</button>
+            <div className="flex flex-col">
+              <h3 className="text-xl font-black text-ink">Bestsellers</h3>
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Swipe to explore</p>
+            </div>
+            <button onClick={() => navigate("/studio")} className="h-10 w-10 rounded-full bg-slate-100 flex items-center justify-center text-ink active:scale-90 transition-transform">
+              <ChevronRight size={20} />
+            </button>
           </div>
-          <div className="flex overflow-x-auto gap-4 pb-4 scrollbar-none snap-x snap-mandatory px-4 w-full">
+          <div className="flex overflow-x-auto gap-4 pb-6 scrollbar-none snap-x snap-mandatory px-4">
             {featuredProducts.map((p) => (
-              <div key={p.id} className="min-w-[175px] w-[175px] snap-start">
+              <div key={p.id} className="min-w-[190px] w-[190px] snap-start">
                 <ProductCard product={p} selected={false} onSelect={() => navigate("/studio")} />
               </div>
             ))}
+            <div 
+              onClick={() => navigate("/studio")}
+              className="min-w-[160px] w-[160px] snap-start rounded-[32px] bg-slate-100 border-2 border-dashed border-slate-200 flex flex-col items-center justify-center gap-3 text-slate-400"
+            >
+              <ShoppingBag size={24} />
+              <span className="text-[10px] font-black uppercase tracking-widest text-center">See Entire<br />Collection</span>
+            </div>
           </div>
         </div>
 
@@ -168,7 +187,7 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
             <button onClick={() => navigate("/studio")} className="text-xs font-black text-orange-500 uppercase tracking-widest hover:text-ink transition-colors py-2 pl-3">View All →</button>
           </div>
           <div className="grid grid-cols-4 gap-6">
-            {featuredProducts.slice(0, 4).map((p) => (
+            {featuredProducts.slice(0, 8).slice(0, 4).map((p) => (
               <ProductCard key={p.id} product={p} selected={false} onSelect={() => navigate("/studio")} />
             ))}
           </div>
