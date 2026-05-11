@@ -24,7 +24,7 @@ export const fallbackProducts = [
     category: "Water Bottles",
     price: 899,
     compareAt: 1299,
-    image: "https://images.pexels.com/photos/1187317/pexels-photo-1187317.jpeg?auto=compress&cs=tinysrgb&w=800",
+    image: "https://images.unsplash.com/photo-1523362628742-0c2602eeae22?q=80&w=800",
     description: "Double-walled steel bottle with laser-engraved name or logo.",
     leadTime: "4 days",
     rating: 4.9,
