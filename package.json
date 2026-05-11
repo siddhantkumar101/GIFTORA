@@ -1,8 +1,0 @@
-{
-  "name": "giftora-monorepo",
-  "private": true,
-  "scripts": {
-    "build": "npm run build --prefix client",
-    "install": "npm install --prefix client"
-  }
-}
