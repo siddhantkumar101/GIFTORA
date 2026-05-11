@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { CheckCircle2 } from "lucide-react";
 import { money } from "../utils/helpers.js";
-const placeholderImage = "https://via.placeholder.com/400?text=Image+Not+Found";
+const placeholderImage = "https://images.unsplash.com/photo-1594322436404-5a0526db4d13?q=80&w=600&auto=format&fit=crop";
 
 export default function ProductCard({ product, selected, onSelect }) {
   const [loaded, setLoaded] = useState(false);
@@ -18,11 +18,16 @@ export default function ProductCard({ product, selected, onSelect }) {
       <div className="relative aspect-[4/3] overflow-hidden bg-slate-50">
         <div className={`absolute inset-0 bg-slate-200 animate-pulse transition-opacity duration-500 ${loaded ? "opacity-0" : "opacity-100"}`} />
         <img
-          src={product.image}
+          src={product.image || placeholderImage}
           alt={product.name}
           loading="lazy"
           onLoad={() => setLoaded(true)}
-          onError={(e) => { e.target.src = placeholderImage; setLoaded(true); }}
+          onError={(e) => { 
+            if (e.target.src !== placeholderImage) {
+              e.target.src = placeholderImage; 
+              setLoaded(true); 
+            }
+          }}
           className={`relative z-10 h-full w-full object-cover transition-all duration-700 ${loaded ? "opacity-100" : "opacity-0"} ${selected ? "scale-105" : "hover:scale-105"}`}
         />
         {selected && (
