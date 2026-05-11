@@ -34,36 +34,44 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
       {/* 📱 MOBILE-ONLY REFINED VIEW */}
       <div className="block sm:hidden w-full overflow-x-hidden">
         
-        {/* REFINED SEARCH BAR - MOVED DOWN, NON-FIXED */}
+        {/* REFINED SEARCH BAR */}
         <div className="w-full px-4 py-6 box-border bg-white border-b border-slate-50 mb-8">
           <div className="relative w-full overflow-hidden">
             <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
             <input 
               type="text" 
               placeholder="Search for your next gift..."
-              className="w-full bg-slate-100/70 border-none h-12 pl-12 pr-4 rounded-2xl text-sm font-semibold focus:ring-2 focus:ring-coral/20 appearance-none"
+              className="w-full bg-slate-100/70 border-none h-12 pl-12 pr-4 rounded-2xl text-sm font-semibold focus:ring-0 appearance-none"
             />
           </div>
         </div>
 
         <div className="space-y-12 w-full overflow-x-hidden">
           
-          {/* DYNAMIC SCROLLING STORIES */}
-          <div className="w-full overflow-x-auto scrollbar-none py-2 touch-pan-x">
-             <div className="flex flex-nowrap gap-8 px-6 w-max">
-                {dynamicCategories.map((cat) => (
-                  <button 
-                    key={cat.id} 
-                    onClick={() => navigate(`/studio?category=${cat.name}`)} 
-                    className="flex flex-col items-center gap-3 shrink-0 active:scale-95"
-                  >
-                    <div className="relative w-[84px] h-[84px] rounded-full p-1 bg-white shadow-md border border-slate-50">
-                      <img src={cat.image} className="w-full h-full rounded-full object-cover" alt={cat.name} />
-                    </div>
-                    <span className="text-[11px] font-black text-ink uppercase tracking-tight">{cat.name}</span>
-                  </button>
-                ))}
-                <div className="w-6 shrink-0" />
+          {/* FORCED OVERFLOW STORIES - MASSIVE FOR TOUCH MOVEMENT */}
+          <div className="w-full overflow-hidden">
+             <div className="w-full overflow-x-auto scrollbar-none py-4 touch-pan-x">
+                <div className="flex flex-nowrap gap-12 px-8 w-max">
+                   {dynamicCategories.map((cat) => (
+                     <button 
+                       key={cat.id} 
+                       onClick={() => navigate(`/studio?category=${cat.name}`)} 
+                       className="flex flex-col items-center gap-4 shrink-0 active:scale-90 transition-transform"
+                     >
+                       <div className="relative w-[100px] h-[100px] rounded-full p-1.5 bg-white shadow-xl border border-slate-50">
+                         <img src={cat.image} className="w-full h-full rounded-full object-cover" alt={cat.name} />
+                       </div>
+                       <span className="text-[12px] font-black text-ink uppercase tracking-tight">{cat.name}</span>
+                     </button>
+                   ))}
+                   <button onClick={() => navigate("/studio")} className="flex flex-col items-center gap-4 shrink-0">
+                      <div className="w-[100px] h-[100px] rounded-full bg-slate-50 flex items-center justify-center border-2 border-dashed border-slate-200 text-slate-300">
+                         <Sparkles size={36} />
+                      </div>
+                      <span className="text-[12px] font-black text-slate-300 uppercase tracking-tight">View All</span>
+                   </button>
+                   <div className="w-8 shrink-0" />
+                </div>
              </div>
           </div>
 
