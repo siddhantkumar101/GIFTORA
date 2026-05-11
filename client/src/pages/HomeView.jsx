@@ -52,10 +52,10 @@ const categories = [
 ];
 
 const heroImages = [
-  "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=1200",
-  "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=1200",
-  "https://images.unsplash.com/photo-1512418490979-92798ccc1380?w=1200",
-  "https://images.unsplash.com/photo-1572021335469-3171624c1c5c?w=1200"
+  "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=1600",
+  "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=1600",
+  "https://images.unsplash.com/photo-1512418490979-92798ccc1380?w=1600",
+  "https://images.unsplash.com/photo-1530103043960-ef38714abb15?w=1600"
 ];
 
 export default function HomeView() {
@@ -97,7 +97,10 @@ export default function HomeView() {
             Discover unique presents that tell your story
           </p>
           <button 
-            onClick={() => navigate("/studio")}
+            onClick={() => {
+              navigate("/studio");
+              window.scrollTo(0, 0);
+            }}
             className="bg-[#facc15] hover:bg-[#eab308] text-black h-14 px-12 rounded-xl text-lg font-black transition-all shadow-xl shadow-black/20 flex items-center gap-3"
           >
             Shop Now
@@ -131,7 +134,10 @@ export default function HomeView() {
             <CategoryCard 
               key={cat.id} 
               {...cat} 
-              onClick={() => navigate("/studio")} 
+              onClick={() => {
+                navigate("/studio");
+                window.scrollTo(0, 0);
+              }} 
             />
           ))}
         </div>
