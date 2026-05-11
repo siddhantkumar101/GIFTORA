@@ -64,14 +64,16 @@ export default function App() {
   const [paymentMethod, setPaymentMethod] = useState("Giftora Secure Demo Pay");
   const [notice, setNotice] = useState("");
   const [search, setSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   const selectedProduct =
     products.find((product) => product.slug === selectedSlug) || products[0] || fallbackProducts[0];
 
   const filteredProducts = products.filter((product) => {
     const term = search.trim().toLowerCase();
-    if (!term) return true;
-    return `${product.name} ${product.category} ${product.description}`.toLowerCase().includes(term);
+    const categoryMatch = selectedCategory === "All" || product.category === selectedCategory;
+    const searchMatch = !term || `${product.name} ${product.category} ${product.description}`.toLowerCase().includes(term);
+    return categoryMatch && searchMatch;
   });
 
   const subtotal = useMemo(
@@ -417,6 +419,7 @@ export default function App() {
             ) : (
               <StudioView
                 products={filteredProducts}
+                allProducts={products}
                 selectedProduct={selectedProduct}
                 selectedSlug={selectedSlug}
                 setSelectedSlug={setSelectedSlug}
@@ -426,6 +429,8 @@ export default function App() {
                 addToCart={addToCart}
                 search={search}
                 setSearch={setSearch}
+                selectedCategory={selectedCategory}
+                setSelectedCategory={setSelectedCategory}
                 session={session}
               />
             )
