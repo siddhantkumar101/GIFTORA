@@ -22,17 +22,8 @@ const PORT = process.env.PORT || 5000;
 app.use(
   cors({
     origin: (origin, callback) => {
-      const allowed = [
-        process.env.CLIENT_ORIGIN,
-        "http://localhost:5173",
-        "http://localhost:3000"
-      ].filter(Boolean);
-      
-      if (!origin || allowed.some(a => origin.startsWith(a.replace(/\/+$/, "")))) {
-        callback(null, true);
-      } else {
-        callback(null, true); // Fallback: allow all in case of misconfiguration
-      }
+      // Allow all origins for this demo to ensure cross-site cookie reliability
+      callback(null, true);
     },
     credentials: true
   })
