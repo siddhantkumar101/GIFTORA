@@ -66,13 +66,13 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
           <p className="text-xl sm:text-2xl font-medium mb-10 opacity-90 drop-shadow-lg max-w-2xl">
             Discover unique presents that tell your story
           </p>
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
             <button 
               onClick={() => {
                 navigate("/studio");
                 window.scrollTo(0, 0);
               }}
-              className="bg-[#facc15] hover:bg-[#eab308] text-black h-14 px-12 rounded-xl text-lg font-black transition-all shadow-xl shadow-black/20"
+              className="bg-[#facc15] hover:bg-[#eab308] text-black h-12 sm:h-14 px-8 sm:px-12 rounded-xl text-base sm:text-lg font-black transition-all shadow-xl shadow-black/20"
             >
               Shop Now
             </button>
@@ -81,7 +81,7 @@ export default function HomeView({ products = [], apiMode = "connecting" }) {
                 const el = document.getElementById('shop-categories');
                 el?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="bg-white/10 backdrop-blur hover:bg-white/20 text-white border border-white/30 h-14 px-10 rounded-xl text-lg font-bold transition-all"
+              className="bg-white/10 backdrop-blur hover:bg-white/20 text-white border border-white/30 h-12 sm:h-14 px-6 sm:px-10 rounded-xl text-base sm:text-lg font-bold transition-all"
             >
               Explore All
             </button>

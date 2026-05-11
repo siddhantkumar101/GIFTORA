@@ -30,7 +30,7 @@ export default function Testimonials() {
 
 function TestimonialCard({ review }) {
   return (
-    <div className="inline-block w-[380px] whitespace-normal glass-card p-8 relative shrink-0">
+    <div className="inline-block w-[280px] sm:w-[380px] whitespace-normal glass-card p-5 sm:p-8 relative shrink-0">
       <Quote className="absolute top-6 right-6 text-mint/10" size={40} />
       <div className="flex gap-1 mb-4">
         {[...Array(review.rating)].map((_, i) => (
