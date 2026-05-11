@@ -12,6 +12,7 @@ export default function CategoryCard({ category, image, subtitle, count, onClick
       className="group relative h-48 overflow-hidden rounded-[32px] border border-slate-100 bg-white cursor-pointer shadow-sm hover:shadow-2xl transition-all duration-700"
     >
       <div className="absolute inset-0 z-0">
+        <img 
           src={image || placeholderImage} 
           alt={category} 
           className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
