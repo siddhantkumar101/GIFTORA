@@ -58,15 +58,9 @@ export default function StudioView({
 
        <section className="grid gap-10 md:gap-12 grid-cols-1 lg:grid-cols-[1fr_420px] px-4 sm:px-6 lg:px-8">
         {/* Left Column: Product Catalog */}
-        <div className="order-2 lg:order-1 space-y-8 sm:space-y-10">
+        <div className="order-2 lg:order-1 space-y-8">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-6">
-               <div className="space-y-1">
-                  <h3 className="text-lg font-black sm:text-2xl text-ink">
-                    1. <span className="sm:hidden">Pick a Gift</span><span className="hidden sm:inline">Browse Products</span>
-                  </h3>
-                  <p className="hidden sm:block text-[11px] font-bold text-slate-400 uppercase tracking-widest">Select from our premium catalog</p>
-               </div>
-               
+               <h3 className="text-lg font-black sm:text-2xl text-ink">1. Browse Products</h3>
                <div className="relative w-full sm:w-auto">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-mint" size={16} />
                   <input 
@@ -94,7 +88,8 @@ export default function StudioView({
                ))}
             </div>
 
-           <div className="grid gap-4 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3">
+           {/* Grid: 4 columns on desktop for smaller images */}
+           <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
              {products.map((product) => (
                <ProductCard
                  key={product.slug}
@@ -106,28 +101,18 @@ export default function StudioView({
            </div>
         </div>
 
-        {/* Right Column: Live Studio */}
-        <div className="order-1 lg:order-2 space-y-6 sm:space-y-8 sticky top-4 z-20 bg-white/95 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none -mx-4 sm:mx-0 px-4 sm:px-0 py-4 sm:py-0 border-b border-slate-100 sm:border-none shadow-xl shadow-slate-200/50 sm:shadow-none" ref={customizerRef}>
-           <div className="space-y-1">
-              <h3 className="text-lg font-black sm:text-2xl text-ink">
-                2. <span className="sm:hidden">Customize</span><span className="hidden sm:inline">Personalize</span>
-              </h3>
-              <p className="hidden sm:block text-[11px] font-bold text-slate-400 uppercase tracking-widest">Real-time product proof</p>
+        {/* Right Column: Live Studio (Sticky Customizer + Preview) */}
+        <div className="order-1 lg:order-2 space-y-8 sticky top-[90px] z-20" ref={customizerRef}>
+           <div className="sm:hidden bg-white/95 backdrop-blur-md p-4 -mx-4 mb-4 border-b border-slate-100 shadow-sm">
+              <h3 className="text-lg font-black text-ink">2. Customize</h3>
            </div>
            
-           <div className="space-y-6 sm:space-y-8">
-              {/* MOBILE PREVIEW STAGE (HIDDEN ON DESKTOP) */}
-              <div className="sm:hidden relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-coral/20 to-orange-500/20 rounded-[40px] blur-xl opacity-50 transition-opacity" />
-                <div className="relative aspect-square bg-gradient-to-br from-slate-50 to-slate-100 rounded-[32px] border border-white shadow-inner flex items-center justify-center p-8 overflow-hidden">
-                   <div className="absolute top-5 left-5 z-10 flex items-center gap-2 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-slate-100 shadow-sm">
-                      <div className="h-2 w-2 rounded-full bg-coral animate-pulse" />
-                      <span className="text-[10px] font-black uppercase tracking-widest text-ink">Live Preview</span>
-                   </div>
-                   <PreviewPanel product={selectedProduct} customizer={customizer} />
-                </div>
-              </div>
-              
+           <div className="hidden sm:block">
+              <h3 className="text-2xl font-black text-ink">2. Personalize</h3>
+              <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-1">Real-time product proof</p>
+           </div>
+
+           <div className="space-y-8">
               <CustomizerPanel
                 selectedProduct={selectedProduct}
                 customizer={customizer}
@@ -137,9 +122,9 @@ export default function StudioView({
                 session={session}
               />
 
-              {/* DESKTOP PREVIEW (RESTORED PARITY) */}
-              <div className="hidden sm:block">
-                 <div className="p-1 rounded-3xl bg-slate-50 border border-slate-100">
+              <div className="pt-4 border-t border-slate-50">
+                 <p className="mb-4 text-[10px] sm:text-sm font-bold uppercase tracking-widest text-slate-400 text-center">Live Preview Proof</p>
+                 <div className="bg-slate-50 rounded-3xl p-2 border border-slate-100">
                     <PreviewPanel product={selectedProduct} customizer={customizer} />
                  </div>
               </div>
