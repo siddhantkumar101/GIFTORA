@@ -406,16 +406,33 @@ export default function App() {
         )}
 
         {loginOpen && (
-          <LoginPanel
-            role={loginRole}
-            mode={loginMode}
-            setMode={setLoginMode}
-            form={loginForm}
-            setForm={setLoginForm}
-            selectRole={setLoginRole}
-            onSubmit={handleLogin}
-            onClose={() => setLoginOpen(false)}
-          />
+          location.pathname === "/" && window.innerWidth < 640 ? (
+            <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-ink/70 backdrop-blur-md" onClick={() => setLoginOpen(false)}>
+              <div onClick={(e) => e.stopPropagation()} className="w-full max-h-[90vh] overflow-y-auto rounded-[32px]">
+                <LoginPanel
+                  role={loginRole}
+                  mode={loginMode}
+                  setMode={setLoginMode}
+                  form={loginForm}
+                  setForm={setLoginForm}
+                  selectRole={setLoginRole}
+                  onSubmit={handleLogin}
+                  onClose={() => setLoginOpen(false)}
+                />
+              </div>
+            </div>
+          ) : (
+            <LoginPanel
+              role={loginRole}
+              mode={loginMode}
+              setMode={setLoginMode}
+              form={loginForm}
+              setForm={setLoginForm}
+              selectRole={setLoginRole}
+              onSubmit={handleLogin}
+              onClose={() => setLoginOpen(false)}
+            />
+          )
         )}
 
         <Routes>
