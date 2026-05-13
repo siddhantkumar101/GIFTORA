@@ -326,7 +326,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-bg-main overflow-x-hidden pb-20 lg:pb-0">
-      <header className="sticky top-0 z-40 border-b border-slate-100 bg-white/90 backdrop-blur-xl">
+      <header className={`sticky top-0 z-40 border-b border-slate-100 bg-white/90 backdrop-blur-xl ${location.pathname === "/" ? "hidden sm:block" : "block"}`}>
         <div className="mx-auto max-w-7xl px-4 py-3 sm:py-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-2">
             {/* Logo Group */}
@@ -393,7 +393,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl py-6 overflow-x-hidden">
+      <main className={`mx-auto max-w-7xl overflow-x-hidden ${location.pathname === "/" ? "py-0" : "py-6"}`}>
         {notice && (
           <div className="mb-5 flex items-center gap-3 rounded-lg border border-mint/30 bg-mint/10 px-4 py-3 text-sm font-semibold text-teal-900">
             <CheckCircle2 size={18} aria-hidden="true" />
@@ -415,7 +415,15 @@ export default function App() {
         )}
 
         <Routes>
-          <Route path="/" element={<HomeView products={products} apiMode={apiMode} />} />
+          <Route path="/" element={
+            <HomeView 
+              products={products} 
+              apiMode={apiMode} 
+              session={session} 
+              openLogin={openLogin} 
+              logout={logout} 
+            />
+          } />
           <Route path="/studio" element={
             products.length === 0 ? (
               <div className="flex min-h-[400px] flex-col items-center justify-center text-center">
@@ -483,7 +491,10 @@ export default function App() {
           } />
         </Routes>
       </main>
-      <Footer />
+      <div className={location.pathname === "/" ? "hidden sm:block" : "block"}>
+        <Footer />
+      </div>
+
 
       {/* Mobile Bottom Navigation */}
       <div className="fixed bottom-0 left-0 right-0 lg:hidden z-[100] pb-safe">
