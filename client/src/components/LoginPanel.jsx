@@ -17,131 +17,113 @@ export default function LoginPanel({ role, mode, setMode, form, setForm, selectR
   const Icon = roleCopy.icon;
 
   return (
-    <section className="mb-5 rounded-2xl sm:rounded-3xl border border-slate-200 bg-white p-3 sm:p-5 shadow-soft">
-      <div className="grid gap-4 sm:gap-5 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-        <div className="rounded-xl sm:rounded-2xl bg-ink p-4 sm:p-6 text-white">
-          <div className="grid h-12 w-12 place-items-center rounded-lg bg-white/12">
-            <Icon size={24} aria-hidden="true" />
+    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6 bg-ink/60 backdrop-blur-sm animate-fade-in">
+      <section className="w-full max-w-4xl overflow-y-auto max-h-[90vh] rounded-[32px] border border-slate-200 bg-white p-3 sm:p-6 shadow-2xl">
+        <div className="grid gap-4 sm:gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+          <div className="rounded-[24px] bg-ink p-5 sm:p-8 text-white relative overflow-hidden">
+            <div className="absolute -top-10 -right-10 w-40 h-40 bg-coral/20 rounded-full blur-3xl" />
+            <div className="relative z-10">
+              <div className="grid h-12 w-12 place-items-center rounded-xl bg-white/10 backdrop-blur-md">
+                <Icon size={24} className="text-coral" aria-hidden="true" />
+              </div>
+              <p className="mt-6 text-[10px] font-black uppercase tracking-[0.2em] text-white/40">
+                Member Access
+              </p>
+              <h2 className="mt-2 text-3xl font-black leading-none">{roleCopy.title}</h2>
+              <p className="mt-4 text-sm leading-relaxed text-white/60 font-medium">{roleCopy.subtitle}</p>
+              
+              <div className="mt-10">
+                <p className="text-[9px] font-black uppercase tracking-[0.2em] text-white/30 mb-3">Action</p>
+                <div className="flex rounded-xl bg-white/5 p-1 border border-white/5">
+                  <button
+                    type="button"
+                    onClick={() => setMode("login")}
+                    className={`flex-1 rounded-lg py-2.5 text-[10px] font-black uppercase tracking-widest transition-all ${
+                      mode === "login" 
+                        ? "bg-white text-ink shadow-lg" 
+                        : "text-white/40 hover:text-white"
+                    }`}
+                  >
+                    Login
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setMode("register")}
+                    className={`flex-1 rounded-lg py-2.5 text-[10px] font-black uppercase tracking-widest transition-all ${
+                      mode === "register" 
+                        ? "bg-white text-ink shadow-lg" 
+                        : "text-white/40 hover:text-white"
+                    }`}
+                  >
+                    Register
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
-          <p className="mt-5 text-sm font-bold uppercase tracking-[0.18em] text-lemon">
-            Secure Authentication
-          </p>
-          <h2 className="mt-2 text-3xl font-black">{roleCopy.title}</h2>
-          <p className="mt-3 text-sm leading-6 text-white/75">{roleCopy.subtitle}</p>
-          
-          <div className="mt-8 flex flex-col gap-3">
-             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40">Are you new?</p>
-             <div className="flex rounded-xl bg-white/5 p-1">
+
+          <div className="p-2 sm:p-4">
+            <div className="flex items-center justify-between mb-8">
+               <div>
+                  <h3 className="text-xl font-black text-ink">{isRegister ? "Start your journey" : "Welcome back"}</h3>
+                  <p className="text-xs font-bold text-slate-400">Please enter your credentials</p>
+               </div>
+               <button onClick={onClose} className="h-10 w-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:text-ink transition-colors">
+                  <LogIn size={18} className="rotate-180" />
+               </button>
+            </div>
+
+            <form onSubmit={onSubmit} className="grid gap-5">
+              {isRegister && (
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <Field
+                    label="Full Name"
+                    value={form.name}
+                    onChange={(value) => setForm({ ...form, name: value })}
+                  />
+                  <Field
+                    label="Phone"
+                    value={form.phone}
+                    onChange={(value) => setForm({ ...form, phone: value })}
+                  />
+                </div>
+              )}
+              
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field
+                  label="Email"
+                  type="email"
+                  value={form.email}
+                  onChange={(value) => setForm({ ...form, email: value })}
+                />
+                <Field
+                  label="Password"
+                  type="password"
+                  value={form.password}
+                  onChange={(value) => setForm({ ...form, password: value })}
+                />
+              </div>
+              
+              <div className="flex flex-col gap-3 pt-4">
                 <button
-                  type="button"
-                  onClick={() => setMode("login")}
-                  className={`flex-1 rounded-lg py-2 text-xs font-black uppercase tracking-widest transition-all ${
-                    mode === "login" 
-                      ? "bg-white text-ink shadow-lg" 
-                      : "text-white/60 hover:text-white"
-                  }`}
+                  type="submit"
+                  className="w-full h-14 rounded-2xl bg-coral text-white text-sm font-black uppercase tracking-widest shadow-xl shadow-coral/20 hover:scale-[1.02] active:scale-95 transition-all"
                 >
-                  Sign In
+                  {isRegister ? "Create Account" : "Access Studio"}
                 </button>
                 <button
                   type="button"
-                  onClick={() => setMode("register")}
-                  className={`flex-1 rounded-lg py-2 text-xs font-black uppercase tracking-widest transition-all ${
-                    mode === "register" 
-                      ? "bg-white text-ink shadow-lg" 
-                      : "text-white/60 hover:text-white"
-                  }`}
+                  onClick={() => selectRole(role === "seller" ? "consumer" : "seller")}
+                  className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-300 hover:text-coral transition-colors py-2"
                 >
-                  Join Now
+                  Switch to {role === "seller" ? "Customer" : "Admin"} Login
                 </button>
-             </div>
-          </div>
-          
-          <div className="mt-8 border-t border-white/10 pt-6">
-             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 mb-3">Account Type</p>
-             <div className="flex rounded-xl bg-white/5 p-1">
-                <button
-                  type="button"
-                  onClick={() => selectRole("consumer")}
-                  className={`flex-1 rounded-lg py-2 text-xs font-black uppercase tracking-widest transition-all ${
-                    role === "consumer" 
-                      ? "bg-coral text-white shadow-lg" 
-                      : "text-white/60 hover:text-white"
-                  }`}
-                >
-                  Customer
-                </button>
-                <button
-                  type="button"
-                  onClick={() => selectRole("seller")}
-                  className={`flex-1 rounded-lg py-2 text-xs font-black uppercase tracking-widest transition-all ${
-                    role === "seller" 
-                      ? "bg-coral text-white shadow-lg" 
-                      : "text-white/60 hover:text-white"
-                  }`}
-                >
-                  Admin
-                </button>
-             </div>
+              </div>
+            </form>
           </div>
         </div>
-
-        <form onSubmit={onSubmit} className="grid gap-4">
-          {isRegister && (
-            <div className="grid gap-3 sm:grid-cols-2">
-              <Field
-                label="Full Name"
-                value={form.name}
-                onChange={(value) => setForm({ ...form, name: value })}
-              />
-              <Field
-                label="Phone Number"
-                value={form.phone}
-                onChange={(value) => setForm({ ...form, phone: value })}
-              />
-            </div>
-          )}
-          
-          <div className="grid gap-3 sm:grid-cols-2">
-            <Field
-              label="Email Address"
-              type="email"
-              value={form.email}
-              onChange={(value) => setForm({ ...form, email: value })}
-            />
-            <Field
-              label="Secret Password"
-              type="password"
-              value={form.password}
-              onChange={(value) => setForm({ ...form, password: value })}
-            />
-          </div>
-          
-          <div className="flex flex-wrap gap-2 pt-2">
-            <button
-              type="submit"
-              className="focus-ring inline-flex min-h-11 items-center gap-2 rounded-lg bg-coral px-6 text-sm font-black text-white hover:bg-[#df4937]"
-            >
-              <LogIn size={17} aria-hidden="true" />
-              {isRegister ? "Register Now" : `Login as ${role === "seller" ? "Admin" : "Consumer"}`}
-            </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className="focus-ring min-h-11 rounded-lg border border-slate-200 px-4 text-sm font-bold text-slate-700 hover:border-mint"
-            >
-              Close
-            </button>
-          </div>
-          
-          <p className="mt-2 text-xs text-slate-500">
-            {isRegister 
-              ? "By registering, you agree to our gift-giving terms." 
-              : "Welcome back to Giftora Studio."}
-          </p>
-        </form>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }
 
