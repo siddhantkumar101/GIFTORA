@@ -56,9 +56,9 @@ export default function StudioView({
           </p>
        </section>
 
-       <section className="grid gap-10 md:gap-12 grid-cols-1 lg:grid-cols-[1fr_420px] px-4 sm:px-6 lg:px-8">
-        {/* Left Column: Product Catalog */}
-        <div className="order-2 lg:order-1 space-y-8">
+       <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 px-4 sm:px-6 lg:px-8">
+        {/* Left Column: Product Catalog (8 Columns) */}
+        <div className="order-2 lg:order-1 lg:col-span-8 space-y-8">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-6">
                <h3 className="text-lg font-black sm:text-2xl text-ink">1. Browse Products</h3>
                <div className="relative w-full sm:w-auto">
@@ -88,8 +88,7 @@ export default function StudioView({
                ))}
             </div>
 
-           {/* Grid: 4 columns on desktop for smaller images */}
-           <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+           <div className="grid gap-4 grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
              {products.map((product) => (
                <ProductCard
                  key={product.slug}
@@ -101,8 +100,8 @@ export default function StudioView({
            </div>
         </div>
 
-        {/* Right Column: Live Studio (Sticky Customizer + Preview) */}
-        <div className="order-1 lg:order-2 space-y-8 sticky top-[90px] z-20" ref={customizerRef}>
+        {/* Right Column: Live Studio (4 Columns) */}
+        <div className="order-1 lg:order-2 lg:col-span-4 space-y-8 sticky top-[90px] z-20" ref={customizerRef}>
            <div className="sm:hidden bg-white/95 backdrop-blur-md p-4 -mx-4 mb-4 border-b border-slate-100 shadow-sm">
               <h3 className="text-lg font-black text-ink">2. Customize</h3>
            </div>

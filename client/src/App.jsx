@@ -398,7 +398,7 @@ export default function App() {
         </div>
       </header>
 
-      <main className={`mx-auto max-w-7xl overflow-x-hidden ${location.pathname === "/" ? "py-0 sm:py-8" : "py-6"}`}>
+      <main className={`mx-auto max-w-7xl ${location.pathname === "/" ? "py-0 sm:py-8" : "py-6"}`}>
         {notice && (
           <div className="mb-5 flex items-center gap-3 rounded-lg border border-mint/30 bg-mint/10 px-4 py-3 text-sm font-semibold text-teal-900">
             <CheckCircle2 size={18} aria-hidden="true" />
