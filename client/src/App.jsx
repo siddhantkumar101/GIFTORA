@@ -29,6 +29,7 @@ import AdminView from "./pages/AdminView.jsx";
 
 // Components
 import LoginPanel from "./components/LoginPanel.jsx";
+import MobileHome from "./components/MobileHome.jsx";
 import Footer from "./components/Footer.jsx";
 
 export default function App() {

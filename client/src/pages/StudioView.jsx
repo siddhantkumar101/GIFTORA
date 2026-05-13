@@ -54,7 +54,9 @@ export default function StudioView({
           <p className="mt-4 sm:mt-6 mx-auto max-w-xl text-sm sm:text-base text-slate-500 font-medium leading-relaxed sm:text-xl">
              Choose a premium item, add your personal touch, and see it come to life in real-time.
           </p>
-       </se      <section className="grid gap-10 md:gap-12 grid-cols-1 lg:grid-cols-[1fr_420px] px-4 sm:px-0">
+       </section>
+
+       <section className="grid gap-10 md:gap-12 grid-cols-1 lg:grid-cols-[1fr_420px] px-4 sm:px-0">
         {/* Left Column: Product Catalog */}
         <div className="order-2 lg:order-1 space-y-8">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-6">
