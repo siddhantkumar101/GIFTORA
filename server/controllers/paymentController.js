@@ -22,8 +22,9 @@ export const createPaymentOrder = async (req, res) => {
     return res.status(400).json({ message: "Valid amount is required" });
   }
 
-  // If Razorpay is not configured, return a demo order
-  if (!razorpay || KEY_ID === "rzp_test_placeholder") {
+  // If Razorpay is not configured or using placeholders, return a demo order
+  const isPlaceholder = KEY_ID.includes("placeholder") || KEY_ID.includes("yourkeyhere");
+  if (!razorpay || isPlaceholder) {
     return res.json({
       id: `demo_order_${Date.now()}`,
       amount: Math.round(amount * 100),
@@ -57,8 +58,9 @@ export const createPaymentOrder = async (req, res) => {
 export const verifyPayment = async (req, res) => {
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
-  // Demo mode — always verify
-  if (!razorpay || KEY_ID === "rzp_test_placeholder") {
+  // Demo mode — always verify if using placeholders
+  const isPlaceholder = KEY_ID.includes("placeholder") || KEY_ID.includes("yourkeyhere");
+  if (!razorpay || isPlaceholder) {
     return res.json({
       verified: true,
       demo: true,
