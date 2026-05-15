@@ -35,8 +35,8 @@ import Footer from "./components/Footer.jsx";
 export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [apiMode, setApiMode] = useState("connecting");
-  const [products, setProducts] = useState([]);
+  const [apiMode, setApiMode] = useState("demo");
+  const [products, setProducts] = useState(fallbackProducts);
   const [session, setSession] = useState(null);
   const [checkingSession, setCheckingSession] = useState(true);
 
