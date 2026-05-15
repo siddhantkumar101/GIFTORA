@@ -17,7 +17,8 @@
     "giftora-mern": "file:..",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^8.10.1",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "razorpay": "^2.9.6"
   },
   "devDependencies": {
     "cross-env": "^10.1.0",

@@ -269,7 +269,7 @@ export default function App() {
     if (!user.name || !user.email) { setNotice("Details required."); return; }
     if (!address.line1 || !address.city) { setNotice("Address required."); return; }
 
-    const payload = {
+    const orderPayload = {
       customer: user,
       address,
       items: cart.map(({ previewImage, cartId, ...item }) => item),
@@ -278,11 +278,88 @@ export default function App() {
     };
 
     try {
-      const created = await api("/orders", { method: "POST", body: JSON.stringify(payload) });
-      setOrders((current) => [created, ...current]);
-      setCart([]);
-      setNotice(`Order ${created.orderNumber} placed!`);
-      navigate("/orders");
+      // Step 1: Create Razorpay order
+      const rzpOrder = await api("/payment/create-order", {
+        method: "POST",
+        body: JSON.stringify({
+          amount: grandTotal,
+          currency: "INR",
+          receipt: `gft_${Date.now()}`
+        })
+      });
+
+      // Step 2: If demo mode (no real Razorpay keys), skip modal
+      if (rzpOrder.demo) {
+        orderPayload.payment = {
+          method: paymentMethod,
+          status: "Paid (Demo Mode)",
+          transactionId: rzpOrder.id
+        };
+        const created = await api("/orders", { method: "POST", body: JSON.stringify(orderPayload) });
+        setOrders((current) => [created, ...current]);
+        setCart([]);
+        setNotice(`Order ${created.orderNumber} placed! (Demo payment)`);
+        navigate("/orders");
+        return;
+      }
+
+      // Step 3: Open Razorpay checkout modal
+      const options = {
+        key: rzpOrder.key,
+        amount: rzpOrder.amount,
+        currency: rzpOrder.currency,
+        name: "Giftora Studio",
+        description: `Order — ${cart.length} custom gift(s)`,
+        order_id: rzpOrder.id,
+        handler: async function (response) {
+          try {
+            // Step 4: Verify payment on server
+            const verification = await api("/payment/verify", {
+              method: "POST",
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature
+              })
+            });
+
+            if (verification.verified) {
+              // Step 5: Place order
+              orderPayload.payment = {
+                method: "Razorpay",
+                status: "Paid",
+                transactionId: response.razorpay_payment_id
+              };
+              const created = await api("/orders", { method: "POST", body: JSON.stringify(orderPayload) });
+              setOrders((current) => [created, ...current]);
+              setCart([]);
+              setNotice(`Order ${created.orderNumber} placed! Payment ID: ${response.razorpay_payment_id}`);
+              navigate("/orders");
+            } else {
+              setNotice("Payment verification failed. Please contact support.");
+            }
+          } catch (error) {
+            setNotice(`Order failed after payment: ${error.message}`);
+          }
+        },
+        prefill: {
+          name: user.name,
+          email: user.email,
+          contact: user.phone || ""
+        },
+        theme: {
+          color: "#F97316"
+        },
+        modal: {
+          ondismiss: function () {
+            setNotice("Payment cancelled.");
+          }
+        }
+      };
+
+      const razorpayInstance = new window.Razorpay(options);
+      razorpayInstance.open();
+
     } catch (error) {
       setNotice(`Checkout failed: ${error.message}`);
     }
